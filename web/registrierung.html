@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="../script/script.js" defer></script>
+</head>
+<body>
+<div class="content">
+    <div class="card col-4 backgroundWS">
+        <form class="m-3" action="./config/signupBackend.php" method="post" autocomplete="on" target="_blank"> <!-- method post, weil geschützt sein soll -->
+            <div class="mb-0">
+                <p class="formElement ms-3 mb-1">Anrede</p> <!-- label mit anrede -->
+                <div class="container">
+                    <input type="radio" id="male" name="gender" value="male" class="col-1" required>
+                    <label for="male"  class="radialButtonOption ms-3">Herr</label><br>
+                    <input type="radio" id="female" name="gender" value="female" class="col-1" required>
+                    <label for="female" class="radialButtonOption ms-3">Frau</label>
+                </div>
+            </div>
+            <br>
+            <div class="mb-3 col-auto">
+                <label for="firstname" class="form-label">Vorname</label>
+                <input type="text" name="firstname" class="form-control" id="firstname" placeholder="Vorname" value="" required><!-- input mit typ text-> schreiben -->
+            </div>
+            <div class="mb-3 col-auto">
+                <label for="lastname" class="form-label">Nachname</label>
+                <input type="text" id="lastname" class="form-control" name="lastname" placeholder="Nachname" value="" required>
+            </div>
+            <div class="mb-3 col-auto">
+                <label for="email" class="form-label">E-Mail Adresse</label>
+                <input type="email" id="email" class="form-control" name="email" placeholder="name@example.com" value="" required> <!-- input type email -> email eingeben -->
+            </div>
+            <div class="mb-3 col-auto">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" id="username" class="form-control" name="username" placeholder="Username" value="" required>
+            </div>
+            <div class="mb-3 col-auto">
+                <label for="password" class="form-label">Passwort</label>
+                <input type="password" id="password" class="form-control" name="password" placeholder="Passwort" value="" autocomplete="off" required onchange="confirmPassword('password','confpassword')"> <!-- input type password ->"unsichtbar"-->
+            </div>
+            <div class="mb-3 col-auto">
+                <label for="confpassword" class="form-label">Passwort bestätigen</label>
+                <input type="password" id="confpassword" class="form-control" name="confpassword" placeholder="Passwort" value="" autocomplete="off" required onchange="confirmPassword('password','confpassword')"> <!--passwort bestätigen -->
+            </div>
+            <input type="checkbox" id="eula" name="eula" value="eula" class="checkboxButton">
+            <label for="eula" class="text-muted">Ich stimme der <a href="#">AGB</a> zu.</label><br>
+            <input type="checkbox" id="newsletter" name="newsletter" value="newsletter" class="checkboxButton">
+            <label for="newsletter" class="text-muted">Ich möchte Newsletter erhalten</label><br>
+            <input class="btn btn-primary my-2" type="submit" value="Registrieren">
+            <input class="btn btn-outline-primary" type="reset" value="Zurücksetzen">
+        </form>
+    </div>
+</div>
+</body>
+</html>
