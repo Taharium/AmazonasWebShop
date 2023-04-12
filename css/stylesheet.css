@@ -1,4 +1,5 @@
-body {
+body
+{
     margin: 0;
     min-height: 100vh;
 }
@@ -28,20 +29,83 @@ h5{
     margin-top: auto;
 }
 
+#footerDiv {
+    top: 100%;
+    position: sticky;
+    bottom: 0;
+}
+
 .accordion-header {
     width: 100%;
+}
+
+.error_Abfahrt{
+    display: none;
+    max-width: 350px;
 }
 
 .backgroundWS{
     background-color: whitesmoke;
 }
 
+#iFrame{
+    border:1px;
+    border-radius: 5px;
+}
+
+#font_gruß{
+    font-family: 'Meie Script', cursive;
+    font-size: 36px;
+}
 
 .content {
     display: flex; /*flex so lang in eine zeile reinquetschen*/
     flex-direction: row; /*flex direction row --> reihe, (order),column --> blöcke*/
     padding: 20px;
     justify-content: center;
+}
+
+.text{
+    background-color: whitesmoke;
+    display: flex;
+    flex-flow: column;
+    align-items: flex-start;
+}
+
+.im{
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+.shrinkBox {
+    background-color: whitesmoke;
+    height: auto;
+    width: auto;
+    padding: 2%;
+    border-width: 1px;
+    border-color: darkgray;
+    border-radius: 10px;
+    border-style: solid;
+    margin-bottom: 20px;
+    box-shadow: 0 0 20px 0 rgba(92,92,92,0.75);
+    -webkit-box-shadow: 0 0 20px 0 rgba(92,92,92,0.75);
+    -moz-box-shadow: 0 0 20px 0 rgba(92,92,92,0.75);
+}
+
+ul{
+    list-style: none;
+    padding-left: 20px;
+}
+
+.image{
+    max-width: 200px;
+    height: 240px;
+    object-fit: cover;
+}
+
+form {
+    font-size: 18px;
 }
 
 label {
@@ -66,4 +130,68 @@ input {
     padding: 5px;
 }
 
+.buttonA {
+    background-color: rgb(0, 162, 232);
+    border: none;
+    color: white;
+    padding: 11px 24px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    margin: 10px 5px 5px 0;
+}
 
+.buttonB{
+    background-color: white;
+    border-style: solid;
+    border-color: rgb(0, 162, 232);
+    border-width: 1px;
+    color: rgb(0, 162, 232);
+    padding: 10px 23px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    margin: 0;
+}
+
+.buttonA:hover{ /* hover ist eine animation, wenn die maus drüber ist, passiert was*/
+    background-color: rgb(0, 138, 197);
+}
+
+.buttonB:hover{ /* hover ist eine animation, wenn die maus drüber ist, passiert was*/
+    background-color: rgb(230, 230, 230);
+}
+
+.accordion-button {
+    background-color: whitesmoke;
+}
+.accordion-header {
+    margin: 0;
+    padding: 0;
+}
+
+#arrowTopAnchor {
+    display: block;
+    position: fixed;
+    bottom: 120px;
+    right: 20px;
+    z-index: 100;
+}
+
+#errorDate {
+    display: none;
+    max-width: 354px;
+    background-color: white;
+    border-style: solid;
+    border-width: 1px;
+    border-color: lightgray;
+    border-radius: 6px;
+    padding: 5px;
+}
+
+#footnotelink{
+    text-decoration: none;
+    color: black;
+}
