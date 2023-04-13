@@ -4,16 +4,15 @@ $("#header").load("../inc/navbar.html")
 $("body").append("<div id='footer'></div>")
 $('#footer').load("../inc/footer.html")
 
-function confirmPassword(pwId, confId) {
-    // checks if password is correct
-    let password = document.getElementById(pwId);
-    let confirmPassword = document.getElementById(confId);
-
-    if(confirmPassword.value.length < 8) {
-        confirmPassword.setCustomValidity("Passwörter müssen mindestens 8 Zeichen lang sein");
-    } else if (password.value !== confirmPassword.value) {
-        confirmPassword.setCustomValidity("Passwörter stimmen nicht überein!");
+$("#password, #confpassword").on("change", function (){
+    console.log("hello")
+    let password = $("#password").val()
+    let confirmPassword = $("#confpassword")
+    if(password.length < 8){
+        confirmPassword.get(0).setCustomValidity("Passwörter müssen mindestens 8 Zeichen lang sein")
+    } else if (password !== confirmPassword.val()) {
+        confirmPassword.get(0).setCustomValidity("Passwörter stimmen nicht überein!");
     } else {
-        confirmPassword.setCustomValidity('');
+        confirmPassword.get(0).setCustomValidity('');
     }
-}
+})
