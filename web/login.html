@@ -11,11 +11,11 @@
         <form action="./config/loginBackend.php" method="post" autocomplete="on"> <!-- method post, weil geschützt sein soll -->
             <div class="mb-3 col-auto">
                 <label for="emailLogin" class="form-label">Email address</label>
-                <input type="email" name="emailLogin" class="form-control" id="emailLogin" placeholder="name@example.com">
+                <input type="email" name="emailLogin" class="form-control" id="emailLogin" placeholder="name@example.com" required>
             </div>
             <div class="col-auto">
                 <label for="passwordLogin" class="form-label">Password</label>
-                <input type="password" name="passwordLogin" class="form-control" id="passwordLogin" placeholder="Passwort">
+                <input type="password" name="passwordLogin" class="form-control" id="passwordLogin" placeholder="Passwort" required>
             </div>
             <br>
             <p>Keinen Account? Hier geht es zur <a href="registrierung.html">Registrierung</a></p>
