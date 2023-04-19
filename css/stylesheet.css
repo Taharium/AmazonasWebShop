@@ -3,10 +3,6 @@ body {
     min-height: 100vh;
 }
 
-.bodyBackground{
-
-}
-
 nav{
     opacity: 98%;
     box-shadow: 0 0 41px 7px rgba(0,0,0,0.49);
@@ -92,9 +88,3 @@ input {
     aspect-ratio: 4/2;
     width: 100%;
 }
-
-/*pictures {
-    object-fit: contain;
-    aspect-ratio: 4/2;
-    width: 100%;
-}*/
