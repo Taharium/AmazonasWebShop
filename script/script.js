@@ -14,7 +14,7 @@ $("#password, #confpassword").on("input", function (){
     } else {
         confirmPassword.get(0).setCustomValidity('');
     }
-})
+});
 
 $("#passwordLogin").on("input", function (){
     let password = $("#passwordLogin")
@@ -34,21 +34,20 @@ function validateEmail(email) {
 $('#email').on('input', function (){
     const email = $('#email');
 
-    let bool = validateEmail(email.val())
-    console.log(bool)
+    let bool = validateEmail(email.val());
+
     if(bool) {
         email.get(0).setCustomValidity("")
     } else {
         email.get(0).setCustomValidity('Keine gültige Email-Adresse');
     }
-
 });
 
 $('#emailLogin').on('input', function (){
     const email = $('#emailLogin');
 
-    let bool = validateEmail(email.val())
-    console.log(bool)
+    let bool = validateEmail(email.val());
+
     if(bool)  {
         email.get(0).setCustomValidity("")
     } else {
