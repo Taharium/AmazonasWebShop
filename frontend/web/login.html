@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-    <script src="../script/script.js" defer></script>
+    <script src="../script/validation.js" defer></script>
+    <script src="../script/ajax.js" defer></script>
 </head>
 <body>
 <h1 class="h1 mt-3 mb-4">Anmeldung zu Ihrem Account</h1>
-<div class="contentFlex">
+<div class="contentFlex ">
     <div class="card m-3 d-flex justify-content-center p-3 col-3 backgroundWS" >
-        <form action="./config/loginBackend.php" method="post" autocomplete="on"> <!-- method post, weil geschützt sein soll -->
+        <form id="loginForm" method="post"> <!-- method post, weil geschützt sein soll -->
             <div class="mb-3 col-auto">
                 <label for="emailLogin" class="form-label">Email address</label>
                 <input type="email" name="emailLogin" class="form-control" id="emailLogin" placeholder="name@example.com" required>

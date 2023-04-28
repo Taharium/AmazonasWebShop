@@ -20,7 +20,7 @@ CREATE TABLE person (
     fk_addr_ID int(11) NOT NULL,
     firstname varchar(255) NOT NULL,
     lastname varchar(255) NOT NULL,
-    CONSTRAINT  FOREIGN KEY (fk_addr_ID) REFERENCES amazonas_webshop.address (addr_ID) ON DELETE CASCADE ON UPDATE CASCADE
+    CONSTRAINT  FOREIGN KEY (fk_addr_ID) REFERENCES amazonas_webshop.address (addr_ID) ON DELETE CASCADE
 );
 
 -- --------------------------------------------------------
@@ -48,8 +48,8 @@ CREATE TABLE user (
     user_ID int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
     fk_pers_ID int(11) NOT NULL,
     password varchar(255) NOT NULL,
-    inactive tinyint(1) NOT NULL,
-    CONSTRAINT  FOREIGN KEY (fk_pers_ID) REFERENCES amazonas_webshop.person (pers_ID) ON DELETE CASCADE ON UPDATE CASCADE
+    is_active BOOL NOT NULL DEFAULT TRUE,
+    CONSTRAINT  FOREIGN KEY (fk_pers_ID) REFERENCES amazonas_webshop.person (pers_ID) ON DELETE CASCADE
 );
 
 -- --------------------------------------------------------
@@ -61,9 +61,9 @@ CREATE TABLE user (
 CREATE TABLE receipt (
      r_ID int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
      date TIMESTAMP NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-     state tinyint(4) NOT NULL,
+     status tinyint(4) NOT NULL,
      fk_user_ID int(11) NOT NULL,
-     CONSTRAINT  FOREIGN KEY (fk_user_ID) REFERENCES amazonas_webshop.user (user_ID) ON DELETE CASCADE ON UPDATE CASCADE
+     CONSTRAINT  FOREIGN KEY (fk_user_ID) REFERENCES amazonas_webshop.user (user_ID) ON DELETE CASCADE
 );
 
 -- --------------------------------------------------------
@@ -76,8 +76,10 @@ CREATE TABLE ordered_products (
     fk_prod_ID int(11) NOT NULL,
     fk_r_ID int(11) NOT NULL,
     amount int(11) NOT NULL,
-    CONSTRAINT  FOREIGN KEY (fk_prod_ID) REFERENCES amazonas_webshop.product (prod_ID) ON DELETE CASCADE ON UPDATE CASCADE,
-    CONSTRAINT  FOREIGN KEY (fk_r_ID) REFERENCES amazonas_webshop.receipt (r_ID) ON DELETE CASCADE ON UPDATE CASCADE
+    CONSTRAINT  FOREIGN KEY (fk_prod_ID) REFERENCES amazonas_webshop.product (prod_ID) ON DELETE CASCADE,
+    CONSTRAINT  FOREIGN KEY (fk_r_ID) REFERENCES amazonas_webshop.receipt (r_ID) ON DELETE CASCADE
 );
+
+SELECT * FROM person WHERE pers_ID = 1 AND (SELECT password FROM user WHERE fk_pers_ID = 1) = '$2y$10$VtgSZoj5j7VnC5NjD2msDuiRla4/PI.QTN.mbEVC8HZWf2Jc/uJAy';
 
 -- --------------------------------------------------------

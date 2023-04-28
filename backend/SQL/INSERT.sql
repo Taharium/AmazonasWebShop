@@ -37,7 +37,7 @@ INSERT INTO product (prod_ID, description, price, product_name, stock, picture) 
 
 -- insert statement for the receipt table
 
-INSERT INTO receipt (r_ID, date, state, fk_user_ID) VALUES
+INSERT INTO receipt (r_ID, date, status, fk_user_ID) VALUES
     (1, '2018-12-05 15:00:00', 1, 1),
     (2, '2018-12-05 15:00:00', 1, 2),
     (3, '2018-12-05 15:00:00', 1, 3),

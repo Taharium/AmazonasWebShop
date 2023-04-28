@@ -44,8 +44,6 @@ h5 {
 
 .contentFlex {
     display: flex; /*flex so lang in eine zeile reinquetschen*/
-    flex-direction: row; /*flex direction row --> reihe, (order),column --> blöcke*/
-    padding: 20px;
     justify-content: center;
 }
 

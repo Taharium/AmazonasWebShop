@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="../script/validation.js" defer></script>
+    <script src="../script/ajax.js" defer></script>
+</head>
+<body>
+<h1 class="h1 mt-3 mb-4">Registrierung</h1>
+<div class="contentFlex">
+    <div class="card col-sm-4 col-6 backgroundWS">
+        <form id="registrierungForm" class="m-3" method="POST"> <!-- method post, weil geschützt sein soll -->
+            <div class="mb-0">
+                <p class="formElement mb-1">Anrede</p> <!-- label mit anrede -->
+                <div class="container">
+                    <input type="radio" id="male" name="gender" value="male" class="col-1" required>
+                    <label for="male"  class="radialButtonOption ms-3">Herr</label><br>
+                    <input type="radio" id="female" name="gender" value="female" class="col-1" required>
+                    <label for="female" class="radialButtonOption ms-3">Frau</label>
+                </div>
+            </div>
+            <br>
+            <div class="mb-3 d-flex">
+                <div class="me-1 col">
+                    <label for="firstname" class="form-label">Vorname</label>
+                    <input type="text" name="firstname" class="form-control" id="firstname" placeholder="Vorname" value="" required><!-- input mit typ text-> schreiben -->
+                </div>
+                <div class="col">
+                    <label for="lastname" class="form-label">Nachname</label>
+                    <input type="text" id="lastname" class="form-control" name="lastname" placeholder="Nachname" value="" required>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">E-Mail Adresse</label>
+                <input type="email" id="email" class="form-control" name="email" placeholder="name@example.com" value="" required> <!-- input type email -> email eingeben -->
+                <p id="result1"></p>
+            </div>
+            <div class="mb-3">
+                <label for="street" class="form-label">Straße</label>
+                <input type="text" id="street" class="form-control" name="street" placeholder="Straße" value="" required>
+            </div>
+            <div class="mb-3 d-flex">
+                <div class="me-1 col">
+                    <label for="housenumber" class="form-label">Hausnummer</label>
+                    <input type="text" id="housenumber" class="form-control" name="housenumber" placeholder="z.B. 2" value="" required>
+                </div>
+                <div class="me-1 col">
+                    <label for="doornumber" class="form-label">Türnummer</label>
+                    <input type="text" id="doornumber" class="form-control" name="doornumber" placeholder="z.B. 3" value="" required>
+                </div>
+            </div>
+            <div class="mb-3 d-flex">
+                <div class="me-1 col">
+                    <label for="postalcode" class="form-label">PLZ</label>
+                    <input type="text" id="postalcode" class="form-control" name="postalcode" placeholder="z.B. 1100" value="" required>
+                </div>
+                <div class="me-1 col">
+                    <label for="city" class="form-label">Ort</label>
+                    <input type="text" id="city" class="form-control" name="city" placeholder="z.B. Wien" value="" required>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Passwort</label>
+                <input type="password" id="password" class="form-control" name="password" placeholder="Passwort" value="" autocomplete="off" required> <!-- input type password ->"unsichtbar"-->
+            </div>
+            <div class="mb-3">
+                <label for="confpassword" class="form-label">Passwort bestätigen</label>
+                <input type="password" id="confpassword" class="form-control" name="confpassword" placeholder="Passwort" value="" autocomplete="off" required> <!--passwort bestätigen -->
+            </div>
+            <!--<input type="checkbox" id="eula" name="eula" value="eula" class="checkboxButton">
+            <label for="eula" class="text-muted">Ich stimme der <a href="#">AGB</a> zu.</label><br>-->
+            <input type="checkbox" id="newsletter" name="newsletter" value="newsletter" class="checkboxButton">
+            <label for="newsletter" class="my-2 text-muted">Ich möchte Newsletter erhalten</label><br>
+            <input class="btn btn-primary my-2" type="submit" value="Registrieren">
+            <input class="btn btn-outline-primary" type="reset" value="Zurücksetzen">
+            <input type="hidden" name="post_type" value="Registrierung">
+        </form>
+    </div>
+</div>
+</body>
+</html>
