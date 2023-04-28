@@ -9,8 +9,12 @@ $("#registrierungForm").on("submit", function(event) {
         data: form.serialize(),
         success: function (data) {
             console.log(data);
-            $('#registrierungForm :input').val('');
-            window.location = "homepage.html";
+            if (data === "Success") {
+                $('#registrierungForm :input').val('');
+                window.location = "homepage.html";
+            } else {
+                alert("Bitte füllen Sie alle Felder aus!");
+            }
         },
         error: function () {
             alert("Fehler");

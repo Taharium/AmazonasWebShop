@@ -40,21 +40,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $param = $_POST;
             }
             break;
-        case "newUser":
+        case "Login":
             if (!isset($_POST['emailLogin'])) {
                 // missing email
                 $valid = false;
             } else if (!isset($_POST['passwordLogin'])) {
                 // missing password
-                $valid = false;
-            } else {
-                $queryType = $_POST["post_type"];
-                $param = $_POST;
-            }
-            break;
-        case "deleteAppointment":
-            if (!isset($_POST['appointment_id'])) {
-                // missing id
                 $valid = false;
             } else {
                 $queryType = $_POST["post_type"];
