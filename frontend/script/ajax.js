@@ -9,6 +9,8 @@ $("#registrierungForm").on("submit", function(event) {
         data: form.serialize(),
         success: function (data) {
             console.log(data);
+            $('#registrierungForm :input').val('');
+            window.location = "homepage.html";
         },
         error: function () {
             alert("Fehler");
