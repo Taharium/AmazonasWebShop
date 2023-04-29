@@ -58,7 +58,7 @@ CREATE TABLE user (
 -- Tabellenstruktur für Tabelle receipt
 --
 
-CREATE TABLE receipt (
+CREATE TABLE `order` (
      r_ID int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
      date TIMESTAMP NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
      status tinyint(4) NOT NULL,
@@ -77,7 +77,7 @@ CREATE TABLE ordered_products (
     fk_r_ID int(11) NOT NULL,
     amount int(11) NOT NULL,
     CONSTRAINT  FOREIGN KEY (fk_prod_ID) REFERENCES amazonas_webshop.product (prod_ID) ON DELETE CASCADE,
-    CONSTRAINT  FOREIGN KEY (fk_r_ID) REFERENCES amazonas_webshop.receipt (r_ID) ON DELETE CASCADE
+    CONSTRAINT  FOREIGN KEY (fk_r_ID) REFERENCES amazonas_webshop.order (r_ID) ON DELETE CASCADE
 );
 
 SELECT * FROM person WHERE pers_ID = 1 AND (SELECT password FROM user WHERE fk_pers_ID = 1) = '$2y$10$VtgSZoj5j7VnC5NjD2msDuiRla4/PI.QTN.mbEVC8HZWf2Jc/uJAy';

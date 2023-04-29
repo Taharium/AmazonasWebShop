@@ -3,6 +3,7 @@ $("body").prepend("<div id='header'></div>")
 $("#header").load("../inc/navbar.html")
 $("body").append("<div id='footer'></div>")
 $('#footer').load("../inc/footer.html")
+
 // Validate password on registration and password confirmation
 $("#password, #confpassword").on("input", function (){
     let password = $("#password").val()

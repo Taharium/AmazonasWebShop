@@ -19,12 +19,12 @@ INSERT INTO person (pers_ID, email, fk_addr_ID, firstname, lastname) VALUES
 
 -- insert statement for the user table
 
-INSERT INTO user (user_ID, fk_pers_ID, password, inactive) VALUES
-    (1, 1, '$2y$10$hGMPcejbfU7wL2pUNoaY0evay8/lsrzaH25KSTjHCpQY8kRJ.7tD2', 0),
-    (2, 2, '$2y$10$hGMPcejbfU7wL2pUNoaY0evay8/lsrzaH25KSTjHCpQY8kRJ.7tD2', 0),
-    (3, 3, '$2y$10$hGMPcejbfU7wL2pUNoaY0evay8/lsrzaH25KSTjHCpQY8kRJ.7tD2', 0),
-    (4, 4, '$2y$10$hGMPcejbfU7wL2pUNoaY0evay8/lsrzaH25KSTjHCpQY8kRJ.7tD2', 0),
-    (5, 5, '$2y$10$hGMPcejbfU7wL2pUNoaY0evay8/lsrzaH25KSTjHCpQY8kRJ.7tD2', 0);
+INSERT INTO user (user_ID, fk_pers_ID, password, is_active) VALUES
+    (1, 1, '$2y$10$hGMPcejbfU7wL2pUNoaY0evay8/lsrzaH25KSTjHCpQY8kRJ.7tD2', TRUE),
+    (2, 2, '$2y$10$hGMPcejbfU7wL2pUNoaY0evay8/lsrzaH25KSTjHCpQY8kRJ.7tD2', TRUE),
+    (3, 3, '$2y$10$hGMPcejbfU7wL2pUNoaY0evay8/lsrzaH25KSTjHCpQY8kRJ.7tD2', TRUE),
+    (4, 4, '$2y$10$hGMPcejbfU7wL2pUNoaY0evay8/lsrzaH25KSTjHCpQY8kRJ.7tD2', TRUE),
+    (5, 5, '$2y$10$hGMPcejbfU7wL2pUNoaY0evay8/lsrzaH25KSTjHCpQY8kRJ.7tD2', TRUE);
 
 -- insert statement for the product table
 
@@ -37,7 +37,7 @@ INSERT INTO product (prod_ID, description, price, product_name, stock, picture) 
 
 -- insert statement for the receipt table
 
-INSERT INTO receipt (r_ID, date, status, fk_user_ID) VALUES
+INSERT INTO `order` (r_ID, date, status, fk_user_ID) VALUES
     (1, '2018-12-05 15:00:00', 1, 1),
     (2, '2018-12-05 15:00:00', 1, 2),
     (3, '2018-12-05 15:00:00', 1, 3),
