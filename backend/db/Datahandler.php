@@ -24,6 +24,13 @@ class Datahandler
         $this->conn = new MySQLi($this->servername, $this->username, $this->password, $this->db);
     }
 
+    //brauchen wir das?
+    function __destruct()
+    {
+        // closes connection to server
+        $this->conn->close();
+    }
+
     public function Get_UserEmail($param)
     {
         $query = "SELECT * FROM amazonas_webshop.person WHERE email = ?";
@@ -75,6 +82,7 @@ class Datahandler
         $stmt->bind_param("siss", $param["email"], $id, $param["firstname"], $param["lastname"]);
         $stmt->execute();
 
+        // get id of last entry
         $id = $this->conn->query("SELECT MAX(pers_ID) as pers_ID FROM amazonas_webshop.person")->fetch_assoc()['pers_ID'];
 
         $query = "INSERT INTO amazonas_webshop.user (fk_pers_ID, password, is_active) VALUES (?, ?, TRUE)";

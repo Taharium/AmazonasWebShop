@@ -1,6 +1,6 @@
 $("head").load("../inc/head.html")
-$("body").prepend("<div id='header'></div>")
-$("#header").load("../inc/navbar.html")
+$("body").prepend("<div id='navbar'></div>")
+$("#navbar").load("../inc/navbar.html")
 $("body").append("<div id='footer'></div>")
 $('#footer').load("../inc/footer.html")
 
