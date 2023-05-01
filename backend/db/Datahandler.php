@@ -30,7 +30,7 @@ class Datahandler
         // closes connection to server
         $this->conn->close();
     }
-    
+
     public function Get_UserEmail($param){
         $query = "SELECT email, pers_ID FROM amazonas_webshop.person WHERE email = ?";
         $stmt = $this->conn->prepare($query);
@@ -51,6 +51,7 @@ class Datahandler
     public function Get_Userdata($param){
         $emailarr = $this->Get_UserEmail($param);
         $email = $emailarr[0];
+        $id = $emailarr[1];
         $password = $this->Get_Userpassword($emailarr[1]);
 
         $tmp = "NULL";
@@ -58,11 +59,14 @@ class Datahandler
             $query = "SELECT * FROM amazonas_webshop.person
                       JOIN amazonas_webshop.user ON amazonas_webshop.person.pers_ID = amazonas_webshop.user.fk_pers_ID
                       JOIN amazonas_webshop.address ON amazonas_webshop.person.fk_addr_ID = amazonas_webshop.address.addr_ID
-                      WHERE email = ? AND (SELECT password FROM user WHERE fk_pers_ID = ".$emailarr[1].") = ?";
+                      WHERE email = ? AND (SELECT password FROM user WHERE fk_pers_ID = ".$id.") = ?";
             $stmt = $this->conn->prepare($query);
             $stmt->bind_param("ss", $email, $password);
             $stmt->execute();
             $tmp = $stmt->get_result()->fetch_row();
+            if ($tmp == null) {
+                return "NULL";
+            }
         }
         return $tmp;
     }
