@@ -12,10 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // receives new post request and checks for missing information
     switch ($_POST["post_type"]) {
         case "Registrierung":
-            if (!isset($_POST['gender'])) {
-                // if datelist is missing a date/time pair
-                $valid = false;
-            } else if (!isset($_POST['firstname'])) {
+            if (!isset($_POST['firstname'])) {
                 $valid = false;
             } else if (!isset($_POST['lastname'])) {
                 $valid = false;

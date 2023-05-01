@@ -20,7 +20,7 @@ class SimpleLogic
                 $res = $this->handler->Insert_Registrierung($param);
                 break;
             case 'Login':
-                $res = $this->handler->Get_Userpassword($param);
+                $res = $this->handler->Get_Userdata($param);
                 break;
             default:
                 $res = null;
