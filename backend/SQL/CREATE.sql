@@ -80,6 +80,4 @@ CREATE TABLE ordered_products (
     CONSTRAINT  FOREIGN KEY (fk_r_ID) REFERENCES amazonas_webshop.order (r_ID) ON DELETE CASCADE
 );
 
-SELECT * FROM person WHERE pers_ID = 1 AND (SELECT password FROM user WHERE fk_pers_ID = 1) = '$2y$10$VtgSZoj5j7VnC5NjD2msDuiRla4/PI.QTN.mbEVC8HZWf2Jc/uJAy';
-
 -- --------------------------------------------------------

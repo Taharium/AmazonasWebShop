@@ -31,42 +31,58 @@ class Datahandler
         $this->conn->close();
     }
 
-    public function Get_UserEmail($param)
-    {
-        $query = "SELECT * FROM amazonas_webshop.person WHERE email = ?";
+    public function Get_Userdata($email){
+        $query = "SELECT * FROM amazonas_webshop.person
+                      JOIN amazonas_webshop.user ON amazonas_webshop.person.pers_ID = amazonas_webshop.user.fk_pers_ID
+                      JOIN amazonas_webshop.address ON amazonas_webshop.person.fk_addr_ID = amazonas_webshop.address.addr_ID
+                      WHERE email = ?";
         $stmt = $this->conn->prepare($query);
-        $stmt->bind_param("s", $param["email"]);
+        $stmt->bind_param("s", $email);
         $stmt->execute();
-        $tmp = $stmt->get_result()->fetch_all();
+        $tmp = $stmt->get_result()->fetch_row();
         if ($tmp == null) {
             return "NULL";
         }
         return $tmp;
     }
 
-    public function Get_UserPassword($param)
+    public function Get_UserEmail($param)
     {
-        $arr = $this->Get_UserEmail($param);
-        if($arr == "NULL") {
+        $query = "SELECT email, pers_ID FROM amazonas_webshop.person WHERE email = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("s", $param["email"]);
+        $stmt->execute();
+        $tmp = $stmt->get_result()->fetch_row();
+
+        if ($tmp == null) {
             return "NULL";
         }
+        return $tmp;
+    }
+
+    public function Get_Userpassword($param)
+    {
+        $arr = $this->Get_UserEmail($param);
+        $email = $arr[0];
+        $id = $arr[1];
 
         $query = "SELECT * FROM amazonas_webshop.user WHERE fk_pers_ID = ?";
         $stmt = $this->conn->prepare($query);
-        $stmt->bind_param("s", $arr["pers_ID"]);
+        $stmt->bind_param("i", $id);
         $stmt->execute();
-        $tmp = $stmt->get_result()->fetch_all();
+        $tmp = $stmt->get_result()->fetch_assoc();
 
-        if(password_verify($param["password"], $tmp["password"]) && $arr["email"] == $param["email"]) {
-            //return ein join select statement
+        if(password_verify($param["password"], $tmp["password"]) && $email === $param["email"]) {
+            $return = $this->Get_Userdata($email);
         } else {
-            return "NULL";
+            $return = "NULL";
         }
+        return $return;
     }
-
 
     public function Insert_Registrierung($param)
     {
+        $password = $param["password"];
         $param["password"] = password_hash($param['password'], PASSWORD_DEFAULT);
 
         $query = "INSERT INTO amazonas_webshop.address (street, housenumber, doornumber, postal_code, city) VALUES (?, ?, ?, ?, ?)";
@@ -91,7 +107,11 @@ class Datahandler
         $stmt->execute();
 
         //Sofort mit get arabeiten? also gleich Select machen und dann returnen?
-
-        return "Success";
+        $param["password"] = $password;
+        $temp = $this->Get_Userpassword($param);
+        if ($temp == "NULL") {
+            return "NULL";
+        }
+        return $temp;
     }
 }

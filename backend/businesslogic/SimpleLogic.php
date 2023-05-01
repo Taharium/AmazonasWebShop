@@ -19,6 +19,9 @@ class SimpleLogic
             case 'Registrierung':
                 $res = $this->handler->Insert_Registrierung($param);
                 break;
+            case 'Login':
+                $res = $this->handler->Get_Userpassword($param);
+                break;
             default:
                 $res = null;
                 break;

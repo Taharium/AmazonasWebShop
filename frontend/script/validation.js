@@ -31,7 +31,7 @@ $("#passwordLogin").on("input", function (){
 $("#street").on("input", function (){
     let street = $("#street").val()
 
-    if(street.length > 0 && !/^[a-zA-Z]+$/.test(street)){
+    if(street.length > 0 && !/^[a-zA-ZßöäüÖÄÜ]+$/.test(street)){
         $("#street").get(0).setCustomValidity("Straße darf nur aus Buchstaben bestehen")
     } else {
         $("#street").get(0).setCustomValidity('')
