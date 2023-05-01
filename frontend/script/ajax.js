@@ -23,13 +23,8 @@ function postAjax(form, type) {
         success: function(data) {
             console.log(data);
             if(data !== "NULL") {
-                if (type === "login") {
-                    $("#loginForm :input").val("");
-                    window.location = "homepage.html";
-                } else if (type === "registrierung") {
-                    $("#registrierungForm :input").val("");
-                    window.location = "homepage.html";
-                }
+                $("form :input").val("");
+                window.location = "homepage.html";
             } else {
                 alert("Bitte füllen Sie alle Felder aus!");
             }
