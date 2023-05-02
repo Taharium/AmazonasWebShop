@@ -16,7 +16,7 @@ CREATE TABLE address (
 
 CREATE TABLE person (
     pers_ID int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    email varchar(255) NOT NULL,
+    email varchar(255) NOT NULL UNIQUE,
     fk_addr_ID int(11) NOT NULL,
     firstname varchar(255) NOT NULL,
     lastname varchar(255) NOT NULL,

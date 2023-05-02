@@ -31,10 +31,10 @@ class Datahandler
         $this->conn->close();
     }
 
-    public function Get_UserEmail($param){
+    public function Get_UserEmail($email){
         $query = "SELECT email, pers_ID FROM amazonas_webshop.person WHERE email = ?";
         $stmt = $this->conn->prepare($query);
-        $stmt->bind_param("s", $param["emailLogin"]);
+        $stmt->bind_param("s", $email);
         $stmt->execute();
         return $stmt->get_result()->fetch_row();
     }
@@ -49,10 +49,11 @@ class Datahandler
     }
 
     public function Get_Userdata($param){
-        $emailarr = $this->Get_UserEmail($param);
+        $EmailTemp = $param["emailLogin"];
+        $emailarr = $this->Get_UserEmail($EmailTemp);
         $email = $emailarr[0];
         $id = $emailarr[1];
-        $password = $this->Get_Userpassword($emailarr[1]);
+        $password = $this->Get_Userpassword($id);
 
         $tmp = "NULL";
         if(password_verify($param["passwordLogin"], $password) && $email === $param["emailLogin"]) {
@@ -74,6 +75,10 @@ class Datahandler
 
     public function Insert_Registrierung($param)
     {
+        if($this->Get_UserEmail($param["email"]) != null){
+            return "Email already exists";
+        }
+
         $param["password"] = password_hash($param['password'], PASSWORD_DEFAULT);
 
         $query = "INSERT INTO amazonas_webshop.address (street, housenumber, doornumber, postal_code, city) VALUES (?, ?, ?, ?, ?)";

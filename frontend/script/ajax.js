@@ -3,7 +3,7 @@ $("#registrierungForm").on("submit", function(event) {
     event.preventDefault();
     let form = $(this);
     console.log(form.serialize());
-    postAjax(form, "registrierung");
+    postAjax(form);
 
 });
 
@@ -11,20 +11,23 @@ $("#loginForm").on("submit", function(event) {
     event.preventDefault();
     let form = $(this);
     console.log(form.serialize());
-    postAjax(form, "login");
+    postAjax(form);
 
 });
 
-function postAjax(form, type) {
+function postAjax(form) {
     $.ajax({
-        url: "../public/service_handler.php",
+        url: "../../backend/service_handler.php",
         type: "POST",
         data: form.serialize(),
         success: function(data) {
             console.log(data);
-            if(data !== "NULL") {
-                $("form :input").val("");
-                window.location = "homepage.html";
+            if(data === "Email already exists") {
+                alert("Email already exists");
+            } else if(data !== "NULL") {
+                alert("fertig!");
+                //$("form :input").val("");
+                //window.location = "homepage.html";
             } else {
                 alert("Bitte füllen Sie alle Felder aus!");
             }

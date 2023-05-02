@@ -2,7 +2,7 @@
 
 namespace businesslogic;
 use db\Datahandler;
-include("../../backend/db/Datahandler.php");
+include("./db/Datahandler.php");
 class SimpleLogic
 {
     private $handler;

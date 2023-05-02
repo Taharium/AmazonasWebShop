@@ -2,7 +2,7 @@
 
 use businesslogic\simpleLogic;
 
-include("../../backend/businesslogic/SimpleLogic.php");
+include("businesslogic/SimpleLogic.php");
 
 $param = "";
 $queryType = "";
