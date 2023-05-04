@@ -4,7 +4,6 @@ $("#registrierungForm").on("submit", function(event) {
     let form = $(this);
     console.log(form.serialize());
     postAjax(form);
-
 });
 
 $("#loginForm").on("submit", function(event) {
@@ -12,7 +11,6 @@ $("#loginForm").on("submit", function(event) {
     let form = $(this);
     console.log(form.serialize());
     postAjax(form);
-
 });
 
 function postAjax(form) {
@@ -25,9 +23,8 @@ function postAjax(form) {
             if(data === "Email already exists") {
                 alert("Email already exists");
             } else if(data !== "NULL") {
-                alert("fertig!");
                 //$("form :input").val("");
-                //window.location = "homepage.html";
+                window.location = "homepage.html";
             } else {
                 alert("Bitte füllen Sie alle Felder aus!");
             }
