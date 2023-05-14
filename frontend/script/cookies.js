@@ -53,8 +53,8 @@ function deleteCookie(cname) {
 }
 
 function cookies() {
-    $("#navLogout").show();
-    //$("#navLogout").hide();
+    //$("#navLogout").show();
+    $("#navLogout").hide();
     if(checkCookie()){
         $("#navLogout").show();
         console.log("Cookie is set");
