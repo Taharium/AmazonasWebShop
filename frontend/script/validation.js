@@ -108,6 +108,7 @@ $('#email').on('input', function (){
         email.get(0).setCustomValidity("")
     } else {
         email.get(0).setCustomValidity('Keine gültige Email-Adresse');
+        setLoginCookie(email.val());
     }
 });
 
@@ -122,3 +123,15 @@ $('#emailLogin').on('input', function (){
         email.get(0).setCustomValidity('Keine gültige Email-Adresse');
     }
 });
+
+function setLoginCookie(username) {
+    // Set the cookie expiration date to one day from now
+    var expirationDate = new Date();
+    expirationDate.setDate(expirationDate.getDate() + 1);
+
+    // Create the cookie string with the username and expiration date
+    var cookieValue = "username=" + username + ";expires=" + expirationDate.toUTCString();
+
+    // Set the cookie
+    document.cookie = cookieValue;
+}
