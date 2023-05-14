@@ -81,3 +81,7 @@ CREATE TABLE ordered_products (
 );
 
 -- --------------------------------------------------------
+
+-- write a select statement to get the following information: email, pers_ID, is_active
+
+--

@@ -5,22 +5,26 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item active">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0" id="navbarUl">
+                <li class="nav-item active" id="navCategory">
                     <a class="nav-link" href="#">Kategorien</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" id="navAccount">
                     <a class="nav-link" href="#">Account</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" id="navBasket">
                     <a class="nav-link" href="#">Warenkorb</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" id="navLogin">
                     <a class="nav-link"  href="../web/login.html">Login</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" id="navReg">
                     <a class="nav-link"  href="../web/registrierung.html">Registrierung</a>
                 </li>
+                <li class="nav-item" id="navLogout">
+                    <a class="nav-link"  href="../web/homepage.html" onclick="deleteCookie('username')">Logout</a>
+                </li>
+
                 <!--<li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Dropdown

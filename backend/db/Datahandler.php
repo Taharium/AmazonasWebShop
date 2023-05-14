@@ -32,7 +32,10 @@ class Datahandler
     }
 
     public function Get_UserEmail($email){
-        $query = "SELECT email, pers_ID FROM amazonas_webshop.person WHERE email = ?";
+        //$query = "SELECT email, pers_ID FROM amazonas_webshop.person WHERE email = ?";
+        $query = "SELECT email, pers_ID, is_active FROM amazonas_webshop.person
+                  JOIN amazonas_webshop.user ON amazonas_webshop.person.pers_ID = amazonas_webshop.user.fk_pers_ID
+                  WHERE email = ?";
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param("s", $email);
         $stmt->execute();
@@ -48,25 +51,34 @@ class Datahandler
         return $tmp["password"];
     }
 
+
+
     public function Get_Userdata($param){
         $EmailTemp = $param["emailLogin"];
         $emailarr = $this->Get_UserEmail($EmailTemp);
+        if($emailarr == null){
+            return "Wrong email";
+        }
         $email = $emailarr[0];
         $id = $emailarr[1];
+        $active = $emailarr[2];
+        if($active == 0){
+            return "Account not activated";
+        }
         $password = $this->Get_Userpassword($id);
 
-        $tmp = "NULL";
+        $tmp = "Wrong password";
         if(password_verify($param["passwordLogin"], $password) && $email === $param["emailLogin"]) {
-            $query = "SELECT * FROM amazonas_webshop.person
-                      JOIN amazonas_webshop.user ON amazonas_webshop.person.pers_ID = amazonas_webshop.user.fk_pers_ID
-                      JOIN amazonas_webshop.address ON amazonas_webshop.person.fk_addr_ID = amazonas_webshop.address.addr_ID
-                      WHERE email = ? AND (SELECT password FROM user WHERE fk_pers_ID = ".$id.") = ?";
+            $query="SELECT email, firstname, lastname, city, postal_code, street, housenumber, doornumber
+                    FROM address a
+                    INNER JOIN person p ON a.addr_ID = p.fk_addr_ID
+                    WHERE email = ? AND (SELECT password FROM user WHERE fk_pers_ID = ".$id.") = ?";
             $stmt = $this->conn->prepare($query);
             $stmt->bind_param("ss", $email, $password);
             $stmt->execute();
             $tmp = $stmt->get_result()->fetch_row();
             if ($tmp == null) {
-                return "NULL";
+                return "Not found";
             }
         }
         return $tmp;
@@ -114,6 +126,5 @@ class Datahandler
             return "NULL";
         }
         return $tmp;
-
     }
 }

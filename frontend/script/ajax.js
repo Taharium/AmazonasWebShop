@@ -19,14 +19,21 @@ function postAjax(form) {
         type: "POST",
         data: form.serialize(),
         success: function(data) {
-            console.log(data);
             if(data === "Email already exists") {
                 alert("Email already exists");
-            } else if(data !== "NULL") {
-                //$("form :input").val("");
-                window.location = "homepage.html";
-            } else {
+            } else if(data === "Account not activated") {
+                alert("Account not activated");
+            } else if(data === "Wrong password") {
+                alert("Wrong password");
+            } else if (data === "Wrong email") {
+                alert("Wrong email");
+            } else if(data === "NULL") {
                 alert("Bitte füllen Sie alle Felder aus!");
+            } else {
+                console.log(data);
+                setCookie(data[0]);
+                //$("form :input").val("");
+                //window.location = "homepage.html";
             }
         },
         error: function(error) {
