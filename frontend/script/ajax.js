@@ -33,7 +33,7 @@ function postAjax(form) {
                 console.log(data);
                 setCookie(data[0]);
                 //$("form :input").val("");
-                //window.location = "homepage.html";
+                window.location = "homepage.html";
             }
         },
         error: function(error) {

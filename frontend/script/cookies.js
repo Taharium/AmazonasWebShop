@@ -14,11 +14,8 @@ function setCookie(username) {
     expirationDate.setDate(expirationDate.getDate() + 1);
 
     // Create the cookie string with the username and expiration date
-    let cookieValue = "username=" + username + ";expires=" + expirationDate.toUTCString();
-
     // Set the cookie
-    document.cookie = cookieValue;
-    console.log(document.cookie);
+    document.cookie = "username=" + username + ";expires=" + expirationDate.toUTCString();
 }
 
 function getCookie(cname) {
@@ -40,7 +37,7 @@ function getCookie(cname) {
 function checkCookie() {
     let user = getCookie("username");
     if (user !== "") {
-        alert("Welcome again " + user);
+        //alert("Welcome again " + user);
         return true;
     } else {
         //alert("Please log in");
@@ -54,12 +51,19 @@ function deleteCookie(cname) {
 
 function cookies() {
     //$("#navLogout").show();
-    $("#navLogout").hide();
     if(checkCookie()){
         $("#navLogout").show();
+        $("#navAccount").show();
+        $("#navBasket").show();
+        $("#navReg").hide();
+        $("#navLogin").hide();
         console.log("Cookie is set");
     } else {
         $("#navLogout").hide();
+        $("#navAccount").hide();
+        $("#navBasket").hide();
+        $("#navReg").show();
+        $("#navLogin").show();
         console.log("Cookie is not set");
     }
 }
