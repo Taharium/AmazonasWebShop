@@ -1,8 +1,15 @@
 $("head").load("../inc/head.html")
-/*$("body").prepend("<div id='navbar'></div>")
-$("#navbar").load("../inc/navbar.html")*/
 $("body").append("<div id='footer'></div>")
 $('#footer').load("../inc/footer.html")
+
+
+function loadNavbar() {
+    $("body").prepend("<div id='navbar'></div>");
+    $("#navbar").load("../inc/navbar.html", function () {
+        cookies();
+    } );
+
+}
 
 // Validate password on registration and password confirmation
 $("#password, #confpassword").on("input", function (){

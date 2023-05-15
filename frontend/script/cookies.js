@@ -65,5 +65,6 @@ function cookies() {
         $("#navReg").show();
         $("#navLogin").show();
         console.log("Cookie is not set");
+        console.log($("#navLogout").is(":visible"));
     }
 }
