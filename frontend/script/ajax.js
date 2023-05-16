@@ -13,7 +13,7 @@ $("#loginForm").on("submit", function(event) {
     postAjax(form);
 });
 
-function postAjax(type, method, param) {
+function postAjax(type, param) {
     let errorReg = $("#errorReg");
     let errorLogin = $("#errorLogin");
     errorReg.text("");
