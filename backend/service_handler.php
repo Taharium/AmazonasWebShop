@@ -5,64 +5,67 @@ use businesslogic\simpleLogic;
 include("businesslogic/SimpleLogic.php");
 
 $param = "";
-$queryType = "";
+$method = "";
 $valid = true;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // receives new post request and checks for missing information
-    switch ($_POST["post_type"]) {
-        case "Registrierung":
-            if (!isset($_POST['firstname'])) {
-                $valid = false;
-            } else if (!isset($_POST['lastname'])) {
-                $valid = false;
-            } else if (!isset($_POST['email'])) {
-                $valid = false;
-            } else if (!isset($_POST['street'])) {
-                $valid = false;
-            } else if (!isset($_POST['housenumber'])) {
-                $valid = false;
-            } else if (!isset($_POST['doornumber'])) {
-                $valid = false;
-            } else if (!isset($_POST['postalcode'])) {
-                $valid = false;
-            } else if (!isset($_POST['city'])) {
-                $valid = false;
-            } else if (!isset($_POST['password'])) {
-                $valid = false;
-            } else if (!isset($_POST['confpassword'])) {
-                $valid = false;
-            } else {
-                $queryType = $_POST["post_type"];
-                $param = $_POST;
-            }
-            break;
-        case "Login":
-            if (!isset($_POST['emailLogin'])) {
-                // missing email
-                $valid = false;
-            } else if (!isset($_POST['passwordLogin'])) {
-                // missing password
-                $valid = false;
-            } else {
-                $queryType = $_POST["post_type"];
-                $param = $_POST;
-            }
-            break;
-    }
-    //if validation of POST array failed -> response
-    if(!$valid) {
-        response("POST", 200, "Missing information");
-    }
+    isset($_POST) ? $param = $_POST : false;
+    isset($_POST["method"]) ? $method = $_POST["method"] : false;
 }
+    // receives new post request and checks for missing information
+//    switch ($_POST["post_type"]) {
+//        case "Registrierung":
+//            if (!isset($_POST['firstname'])) {
+//                $valid = false;
+//            } else if (!isset($_POST['lastname'])) {
+//                $valid = false;
+//            } else if (!isset($_POST['email'])) {
+//                $valid = false;
+//            } else if (!isset($_POST['street'])) {
+//                $valid = false;
+//            } else if (!isset($_POST['housenumber'])) {
+//                $valid = false;
+//            } else if (!isset($_POST['doornumber'])) {
+//                $valid = false;
+//            } else if (!isset($_POST['postalcode'])) {
+//                $valid = false;
+//            } else if (!isset($_POST['city'])) {
+//                $valid = false;
+//            } else if (!isset($_POST['password'])) {
+//                $valid = false;
+//            } else if (!isset($_POST['confpassword'])) {
+//                $valid = false;
+//            } else {
+//                $queryType = $_POST["post_type"];
+//                $param = $_POST;
+//            }
+//            break;
+//        case "Login":
+//            if (!isset($_POST['emailLogin'])) {
+//                // missing email
+//                $valid = false;
+//            } else if (!isset($_POST['passwordLogin'])) {
+//                // missing password
+//                $valid = false;
+//            } else {
+//                $queryType = $_POST["post_type"];
+//                $param = $_POST;
+//            }
+//            break;
+//    }
+//    //if validation of POST array failed -> response
+//    if(!$valid) {
+//        response("POST", 200, "Missing information");
+//    }
+//}
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
-    isset($_GET["queryType"]) ? $queryType = $_GET["queryType"] : false;
     isset($_GET["param"]) ? $param = $_GET["param"] : false;
+    isset($_GET["method"]) ? $method = $_GET["method"] : false;
 }
 
 $logic = new SimpleLogic();
-$result = $logic->handleRequest($queryType, $param);
+$result = $logic->handleRequest($param);
 
 if ($result == null) {
     response("GET", 400, null);

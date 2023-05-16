@@ -13,15 +13,18 @@ $("#loginForm").on("submit", function(event) {
     postAjax(form);
 });
 
-function postAjax(form) {
+function postAjax(type, method, param) {
     let errorReg = $("#errorReg");
     let errorLogin = $("#errorLogin");
     errorReg.text("");
     errorLogin.text("");
+
     $.ajax({
+        type: type,
         url: "../../backend/service_handler.php",
-        type: "POST",
-        data: form.serialize(),
+        cache: false,
+        data: param,
+        dataType: "json",
         success: function(data) {
             if(data === "Email already exists") {
                 errorReg.text("Email already exists!");

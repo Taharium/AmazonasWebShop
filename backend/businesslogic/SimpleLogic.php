@@ -12,14 +12,46 @@ class SimpleLogic
         $this->handler = new Datahandler();
     }
 
-    public function handleRequest($queryType, $param)
+    public function handleRequest($param)
     {
         // calls associated datahandler request based on querytype
-        switch ($queryType) {
-            case 'Registrierung':
-                $res = $this->handler->Insert_Registrierung($param);
+        switch ($param['method']) {
+            case 'registerUser':
+                $valid = true;
+                if (!isset($param['firstname'])) {
+                    $valid = false;
+                } else if (!isset($param['lastname'])) {
+                    $valid = false;
+                } else if (!isset($param['email'])) {
+                    $valid = false;
+                } else if (!isset($param['street'])) {
+                    $valid = false;
+                } else if (!isset($param['housenumber'])) {
+                    $valid = false;
+                } else if (!isset($param['doornumber'])) {
+                    $valid = false;
+                } else if (!isset($param['postalcode'])) {
+                    $valid = false;
+                } else if (!isset($param['city'])) {
+                    $valid = false;
+                } else if (!isset($param['password'])) {
+                    $valid = false;
+                } else if (!isset($param['confpassword'])) {
+                    $valid = false;
+                }
+                if(!$valid) {
+                    return null;
+                }
+                $res = $this->handler->registerUser($param);
                 break;
-            case 'Login':
+            case 'login':
+                if (!isset($param['emailLogin'])) {
+                    // missing email
+                    return null;
+                } else if (!isset($param['passwordLogin'])) {
+                    // missing password
+                    return null;
+                }
                 $res = $this->handler->Get_Userdata($param);
                 break;
             default:

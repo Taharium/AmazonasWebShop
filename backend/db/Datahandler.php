@@ -85,7 +85,7 @@ class Datahandler
     }
 
 
-    public function Insert_Registrierung($param)
+    public function registerUser($param)
     {
         if($this->Get_UserEmail($param["email"]) != null){
             return "Email already exists";
