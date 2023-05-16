@@ -3,7 +3,7 @@ $("#registrierungForm").on("submit", function(event) {
     event.preventDefault();
     let form = $(this);
     console.log(form.serialize());
-    postAjax(form);
+    postAjax("POST",form.serialize());
 });
 
 $("#loginForm").on("submit", function(event) {
