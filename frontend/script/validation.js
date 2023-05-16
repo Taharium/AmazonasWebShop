@@ -11,6 +11,13 @@ function loadNavbar() {
 
 }
 
+$("#carousel").hide();
+
+setTimeout(function () {
+    $("#carousel").show();
+}, 125);
+
+
 // Validate password on registration and password confirmation
 $("#password, #confpassword").on("input", function (){
     let password = $("#password").val()
