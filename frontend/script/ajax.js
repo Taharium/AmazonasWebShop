@@ -10,7 +10,7 @@ $("#loginForm").on("submit", function(event) {
     event.preventDefault();
     let form = $(this);
     console.log(form.serialize());
-    postAjax(form);
+    postAjax("POST",form.serialize());
 });
 
 function postAjax(type, param) {

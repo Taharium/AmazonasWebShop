@@ -12,11 +12,12 @@ class SimpleLogic
         $this->handler = new Datahandler();
     }
 
-    public function handleRequest($param)
+    public function handleRequest($method, $param)
     {
         // calls associated datahandler request based on querytype
-        switch ($param['method']) {
+        switch ($method) {
             case 'registerUser':
+                error_log("SimpleLogic: " . $method);
                 $valid = true;
                 if (!isset($param['firstname'])) {
                     $valid = false;

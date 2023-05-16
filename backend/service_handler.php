@@ -9,9 +9,10 @@ $method = "";
 $valid = true;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    isset($_POST) ? $param = $_POST : false;
     isset($_POST["method"]) ? $method = $_POST["method"] : false;
+    isset($_POST) ? $param = $_POST : false;
 }
+error_log("service_handler: " . $method);
     // receives new post request and checks for missing information
 //    switch ($_POST["post_type"]) {
 //        case "Registrierung":
@@ -65,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 }
 
 $logic = new SimpleLogic();
-$result = $logic->handleRequest($param);
+$result = $logic->handleRequest($method, $param);
 
 if ($result == null) {
     response("GET", 400, null);
