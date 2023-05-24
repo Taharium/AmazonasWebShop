@@ -1,3 +1,5 @@
+loadDetails();
+
 function loadDetails(){
     console.log("loadDetails");
     if (!checkCookie()){
@@ -5,7 +7,7 @@ function loadDetails(){
         console.log("no cookie");
     }
     else{
-        let param= "";
+        let param= getCookie("username");
         let method = "getAccountDetails";
         $.ajax({
             type: "GET",
@@ -15,14 +17,15 @@ function loadDetails(){
             dataType: "json",
             success: function(response) {
                 console.log(response);
-                $("#first_name").text(response[0].firstname);
-                $("#last_name").text(response[0].lastname);
-                $("#email").text(response[0].email);
-                $("#street").text(response[0].street);
-                $("#housenumber").text(response[0].housenumber);
-                $("#doornumber").text(response[0].doornumber);
-                $("#postalcode").text(response[0].postalcode);
-                $("#city").text(response[0].city);
+                console.log(response[0]);
+                $("#first_name").text(response[1]);
+                $("#last_name").text(response[2]);
+                $("#email").text(response[0]);
+                $("#street").text(response[5]);
+                $("#housenumber").text(response[6]);
+                $("#doornumber").text(response[7]);
+                $("#postalcode").text(response[4]);
+                $("#city").text(response[3]);
             },
             error: function(error) {
                 console.log(error);

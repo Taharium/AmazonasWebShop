@@ -57,6 +57,7 @@ class SimpleLogic
                 break;
             case 'getAccountDetails':
                 $res = $this->handler->getAccountDetails($param);
+                break;
             default:
                 $res = null;
                 break;

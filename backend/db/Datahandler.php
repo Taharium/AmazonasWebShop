@@ -91,7 +91,7 @@ class Datahandler
                 INNER JOIN person p ON a.addr_ID = p.fk_addr_ID
                 WHERE email = ?";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param("s", $param["email"]);
+        $stmt->bind_param("s", $param);
         $stmt->execute();
         $tmp = $stmt->get_result()->fetch_row();
         if ($tmp == null) {
