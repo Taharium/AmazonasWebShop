@@ -6,14 +6,49 @@
     <script src="../script/validation.js" defer></script>
     <script src="../script/cookies.js" defer></script>
     <script src="../script/ajax.js"defer></script>
+    <script src="../script/load_account_details.js" defer></script>
 </head>
 <body onload="loadNavbar()">
 
-    <h1 class="h1 mt-3 mb-4">Account Details</h1>
-    <div class="col-12 col-sm-12 col-md-6 col-xl-4 container mt-3">
-        <div class="card backgroundWS">
-            <!-- TODO: Displaying the account information -->
-
+    <div id=account_details onload="loadDetails()">
+        <h1 class="h1 mt-3 mb-4">Account Details</h1>
+        <div class="col-12 col-sm-12 col-md-6 col-xl-4 container mt-3">
+            <div id="account_email" class="mb-3 col-auto">
+                <label for="email" class="form-label">Email address</label>
+                <input type="email" name="email" class="form-control" id="email" placeholder="Email" disabled>
+            </div>
+            <div id="account_first_name" class="mb-3 col-auto">
+                <label for="first_name" class="form-label">First Name</label>
+                <input type="text" name="first_name" class="form-control" id="first_name" placeholder="First Name" disabled>
+            </div>
+            <div id="account_last_name" class="mb-3 col-auto">
+                <label for="last_name" class="form-label">Last Name</label>
+                <input type="text" name="last_name" class="form-control" id="last_name" placeholder="Last Name" disabled>
+            </div>
+            <div class="mb-3">
+                <label for="street" class="form-label">Straße</label>
+                <input type="text" id="street" class="form-control" name="street" placeholder="Straße" value="" required disabled>
+            </div>
+            <div class="mb-3 d-flex">
+                <div class="me-1 col">
+                    <label for="housenumber" class="form-label">Hausnummer</label>
+                    <input type="text" id="housenumber" class="form-control" name="housenumber" placeholder="z.B. 2" value="" required disabled>
+                </div>
+                <div class="me-1 col">
+                    <label for="doornumber" class="form-label">Türnummer</label>
+                    <input type="text" id="doornumber" class="form-control" name="doornumber" placeholder="z.B. 3" value="" required disabled>
+                </div>
+            </div>
+            <div class="mb-3 d-flex">
+                <div class="me-1 col">
+                    <label for="postalcode" class="form-label">PLZ</label>
+                    <input type="text" id="postalcode" class="form-control" name="postalcode" placeholder="z.B. 1100" value="" required disabled>
+                </div>
+                <div class="me-1 col">
+                    <label for="city" class="form-label">Ort</label>
+                    <input type="text" id="city" class="form-control" name="city" placeholder="z.B. Wien" value="" required disabled>
+                </div>
+            </div>
         </div>
     </div>
     

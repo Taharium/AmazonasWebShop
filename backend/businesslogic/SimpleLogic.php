@@ -55,6 +55,8 @@ class SimpleLogic
                 }
                 $res = $this->handler->Get_Userdata($param);
                 break;
+            case 'getAccountDetails':
+                $res = $this->handler->getAccountDetails($param);
             default:
                 $res = null;
                 break;

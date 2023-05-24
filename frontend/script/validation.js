@@ -8,8 +8,10 @@ function loadNavbar() {
     $("#navbar").load("../inc/navbar.html", function () {
         cookies();
     } );
-
 }
+
+$("#account_details")
+
 
 $("#carousel").hide();
 

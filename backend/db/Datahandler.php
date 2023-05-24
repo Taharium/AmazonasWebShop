@@ -84,6 +84,22 @@ class Datahandler
         return $tmp;
     }
 
+    public function getAccountDetails($param){
+
+        $sql = "SELECT email, firstname, lastname, city, postal_code, street, housenumber, doornumber
+                FROM address a
+                INNER JOIN person p ON a.addr_ID = p.fk_addr_ID
+                WHERE email = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("s", $param["email"]);
+        $stmt->execute();
+        $tmp = $stmt->get_result()->fetch_row();
+        if ($tmp == null) {
+            return "Not found";
+        }
+        return $tmp;
+    }
+
 
     public function registerUser($param)
     {
