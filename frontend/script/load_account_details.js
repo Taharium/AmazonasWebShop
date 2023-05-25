@@ -18,14 +18,14 @@ function loadDetails(){
             success: function(response) {
                 console.log(response);
                 console.log(response[0]);
-                $("#first_name").text(response[1]);
-                $("#last_name").text(response[2]);
-                $("#email").text(response[0]);
-                $("#street").text(response[5]);
-                $("#housenumber").text(response[6]);
-                $("#doornumber").text(response[7]);
-                $("#postalcode").text(response[4]);
-                $("#city").text(response[3]);
+                $("#first_name").val(response[1]);
+                $("#last_name").val(response[2]);
+                $("#email").val(response[0]);
+                $("#street").val(response[5]);
+                $("#housenumber").val(response[6]);
+                $("#doornumber").val(response[7]);
+                $("#postalcode").val(response[4]);
+                $("#city").val(response[3]);
             },
             error: function(error) {
                 console.log(error);

@@ -50,6 +50,9 @@ function callAjax(type, param, method) {
                     }
                     break;
                 case "registerUser":
+                    setTimeout(function(){
+                        window.location = "login.html"
+                    } , 250)
                     break;
             }
         },
