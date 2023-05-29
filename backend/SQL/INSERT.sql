@@ -29,11 +29,16 @@ INSERT INTO user (user_ID, fk_pers_ID, password, is_active) VALUES
 -- insert statement for the product table
 
 INSERT INTO product (prod_ID, description, price, product_name, stock, picture) VALUES
-    (1, 'This is a description', 10.00, 'Product 1', 10, 'picture.png'),
-    (2, 'This is a description', 20.00, 'Product 2', 20, 'picture.png'),
-    (3, 'This is a description', 30.00, 'Product 3', 30, 'picture.png'),
-    (4, 'This is a description', 40.00, 'Product 4', 40, 'picture.png'),
-    (5, 'This is a description', 50.00, 'Product 5', 50, 'picture.png');
+    (1, 'Ein kleines Aquarium', 100.00, 'Aquarium klein', 10, '../../pictures/aqaruium/superfish_home_80_schwarz.png'),
+    (2, 'Ein großes Aquarium', 150.00, 'Aquarium groß', 10, '../../pictures/aqaruium/1576438_4023040_WE_FS_001_JuAqKombiRio125Weiss.png'),
+    (3, 'Das ist ein Tempel für ein Aquarium', 30.00, 'Aquarium Dekoration Tempel', 30, '../../pictures/decoration/aquarium-dekoration-tempel-ankor-wat.png'),
+    (4, 'Das ist ein Moosfelsen für ein Aquarium', 35.00, 'Moosfelsen', 30, '../../pictures/decoration/relaxdays-aquarium-aquarium-deko-felsen.png'),
+    (5, 'Ein Regenbogenfisch für ein Aquarium', 30.00, 'Regenbogenfisch', 10, '../../pictures/fish/low-maintenance-freshwater-fish-4770223-hero-ffb66c229c194e2db4916e88bbd17a15.jpg'),
+    (6, 'Ein Pufferfisch für ein Aquarium', 100.00, 'Pufferfisch', 10, '../../pictures/fish/pufferfish-closeup_16x9.png'),
+    (7, 'Ernährungsbedingt balanciertes Futter für kleine Fische', 10.00, 'Tropical Granules', 50, '../../pictures/food/productimg.png'),
+    (8, 'Komplettes Futter für tropische Fische', 15.00, 'Micro Granules', 50, '../../pictures/food/81gbYPINw8L.png'),
+    (9, 'Filtert Wasser für Fische --> gesund', 50.00, 'Micra Pumpe', 50, '../../pictures/pumps/sicce-micra-plus-aquarium-pump--158-gph--99.png'),
+    (10, 'Filtert Wasser für Fische --> gesund', 50.00, 'Eheim Pumpe', 50, '../../pictures/pumps/178495_2.png');
 
 -- insert statement for the receipt table
 

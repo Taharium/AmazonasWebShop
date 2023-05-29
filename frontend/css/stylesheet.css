@@ -81,3 +81,9 @@ input {
     aspect-ratio: 5/2;
     width: 100%;
 }
+
+.imgProducts {
+    object-fit: contain;
+    aspect-ratio: 6/2;
+    width: 100%;
+}

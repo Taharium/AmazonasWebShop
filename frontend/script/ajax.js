@@ -28,16 +28,12 @@ function callAjax(type, param, method) {
         success: function(data) {
             switch (method) {
                 case "login":
-                    if(data === "Email already exists") {
-                        errorReg.text("Email already exists!");
-                    } else if(data === "Account not activated") {
+                    if(data === "Account not activated") {
                         errorLogin.text("Account not activated!");
                     } else if(data === "Wrong password") {
                         errorLogin.text("Wrong password!");
                     } else if (data === "Wrong email") {
                         errorLogin.text("Wrong email!");
-                    } else if(data === "NULL") {
-                        errorReg.text("Bitte füllen Sie alle Felder aus!");
                     } else if(data === "Not found") {
                         errorLogin.text("Account not found! Please register first!");
                     } else {
@@ -50,9 +46,17 @@ function callAjax(type, param, method) {
                     }
                     break;
                 case "registerUser":
-                    setTimeout(function(){
-                        window.location = "login.html"
-                    } , 250)
+                    if(data === "Email already exists") {
+                        errorReg.text("Email already exists!");
+                    } else if(data === "NULL") {
+                        errorReg.text("Bitte füllen Sie alle Felder aus!");
+                    } else {
+                        console.log(data);
+                        //$("form :input").val("");
+                        setTimeout(function(){
+                            window.location = "registration-successful.html"
+                        }, 250)
+                    }
                     break;
             }
         },
@@ -61,3 +65,5 @@ function callAjax(type, param, method) {
         }
     });
 }
+
+

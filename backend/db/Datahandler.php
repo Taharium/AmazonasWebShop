@@ -100,6 +100,16 @@ class Datahandler
         return $tmp;
     }
 
+    public function getProducts(){
+        $sql = "SELECT * FROM amazonas_webshop.product";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $tmp = $stmt->get_result()->fetch_all();
+        if ($tmp == null) {
+            return "No Products";
+        }
+        return $tmp;
+    }
 
     public function registerUser($param)
     {

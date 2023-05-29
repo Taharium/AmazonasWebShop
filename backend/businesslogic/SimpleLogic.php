@@ -58,6 +58,9 @@ class SimpleLogic
             case 'getAccountDetails':
                 $res = $this->handler->getAccountDetails($param);
                 break;
+            case 'getProducts':
+                $res = $this->handler->getProducts();
+                break;
             default:
                 $res = null;
                 break;
