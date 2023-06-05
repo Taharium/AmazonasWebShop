@@ -29,6 +29,11 @@ if ($result == null) {
         response("POST", 200, $result);
     }
     else if ($_SERVER["REQUEST_METHOD"] == "GET" ) {
+    // if($method == "getSpecificProduct") {
+    //     foreach($result as $key => $value){
+    //         error_log($key." ".$value);
+    //     }
+    // }
         response("GET", 200, $result);
     }
 }

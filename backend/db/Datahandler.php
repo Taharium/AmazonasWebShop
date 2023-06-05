@@ -110,6 +110,19 @@ class Datahandler
         }
         return $tmp;
     }
+    public function getSpecificProduct($id){
+        $sql = "SELECT * FROM amazonas_webshop.product WHERE prod_ID = ".$id;
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $tmp = $stmt->get_result()->fetch_row();
+        if ($tmp == null) {
+            return "No Product";
+        }
+        // foreach($tmp as $key => $value){
+        //     error_log($key." ".$value);
+        // }
+        return $tmp;
+    }
 
     public function registerUser($param)
     {

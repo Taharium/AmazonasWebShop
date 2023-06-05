@@ -31,7 +31,8 @@ CREATE TABLE person (
 
 CREATE TABLE product (
     prod_ID int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    description varchar(255) NOT NULL,
+    short_description varchar(255) NOT NULL,
+    long_description text NOT NULL,
     price float NOT NULL,
     product_name varchar(255) NOT NULL,
     stock int(11) NOT NULL,
