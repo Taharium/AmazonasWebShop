@@ -1,4 +1,5 @@
 DROP TABLE amazonas_webshop.ordered_products;
+DROP TABLE amazonas_webshop.basket;
 DROP TABLE amazonas_webshop.product;
 DROP TABLE amazonas_webshop.order;
 DROP TABLE amazonas_webshop.user;
