@@ -20,7 +20,7 @@ CREATE TABLE person (
     fk_addr_ID int(11) NOT NULL,
     firstname varchar(255) NOT NULL,
     lastname varchar(255) NOT NULL,
-    CONSTRAINT  FOREIGN KEY (fk_addr_ID) REFERENCES amazonas_webshop.address (addr_ID) ON DELETE CASCADE
+    CONSTRAINT FOREIGN KEY (fk_addr_ID) REFERENCES amazonas_webshop.address (addr_ID) ON DELETE CASCADE
 );
 
 -- --------------------------------------------------------
@@ -50,7 +50,7 @@ CREATE TABLE user (
     fk_pers_ID int(11) NOT NULL,
     password varchar(255) NOT NULL,
     is_active BOOL NOT NULL DEFAULT TRUE,
-    CONSTRAINT  FOREIGN KEY (fk_pers_ID) REFERENCES amazonas_webshop.person (pers_ID) ON DELETE CASCADE
+    CONSTRAINT FOREIGN KEY (fk_pers_ID) REFERENCES amazonas_webshop.person (pers_ID) ON DELETE CASCADE
 );
 
 -- --------------------------------------------------------
@@ -64,7 +64,7 @@ CREATE TABLE `order` (
      date TIMESTAMP NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
      status tinyint(4) NOT NULL,
      fk_user_ID int(11) NOT NULL,
-     CONSTRAINT  FOREIGN KEY (fk_user_ID) REFERENCES amazonas_webshop.user (user_ID) ON DELETE CASCADE
+     CONSTRAINT FOREIGN KEY (fk_user_ID) REFERENCES amazonas_webshop.user (user_ID) ON DELETE CASCADE
 );
 
 -- --------------------------------------------------------
@@ -77,12 +77,22 @@ CREATE TABLE ordered_products (
     fk_prod_ID int(11) NOT NULL,
     fk_r_ID int(11) NOT NULL,
     amount int(11) NOT NULL,
-    CONSTRAINT  FOREIGN KEY (fk_prod_ID) REFERENCES amazonas_webshop.product (prod_ID) ON DELETE CASCADE,
-    CONSTRAINT  FOREIGN KEY (fk_r_ID) REFERENCES amazonas_webshop.order (r_ID) ON DELETE CASCADE
+    CONSTRAINT FOREIGN KEY (fk_prod_ID) REFERENCES amazonas_webshop.product (prod_ID) ON DELETE CASCADE,
+    CONSTRAINT FOREIGN KEY (fk_r_ID) REFERENCES amazonas_webshop.order (r_ID) ON DELETE CASCADE
 );
 
 -- --------------------------------------------------------
 
--- write a select statement to get the following information: email, pers_ID, is_active
-
 --
+-- Tabellenstruktur für Tabelle basket
+--
+
+CREATE TABLE basket (
+    fk_user_ID int(11) NOT NULL,
+    fk_prod_ID int(11) NOT NULL,
+    amount int(11) NOT NULL,
+    CONSTRAINT FOREIGN KEY (fk_user_ID) REFERENCES amazonas_webshop.user (user_ID) ON DELETE CASCADE,
+    CONSTRAINT FOREIGN KEY (fk_prod_ID) REFERENCES amazonas_webshop.product (prod_ID) ON DELETE CASCADE
+);
+
+-- --------------------------------------------------------
