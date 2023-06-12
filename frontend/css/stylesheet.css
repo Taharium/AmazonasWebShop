@@ -120,7 +120,7 @@ input {
 }
 .cart-action{
     font-size: 14px;
-    font-family: ‘Open Sans’;
+    font-family: 'Open Sans', serif;
     font-weight: 600;
     color: #E44C4C;
     cursor: pointer;
@@ -147,14 +147,14 @@ input {
     padding-top: 5px;
     line-height: 10px;
     font-size: 32px;
-    font-family: ‘Open Sans’;
+    font-family: 'Open Sans', serif;
     font-weight: 800;
     color: #202020;
 }
 .cart-item-subtitle{
     line-height: 10px;
     font-size: 18px;
-    font-family: ‘Open Sans’;
+    font-family: 'Open Sans', serif;
     font-weight: 600;
     color: #909090;
 }
@@ -173,14 +173,14 @@ input {
     justify-content: center;
     align-items: center;
     font-size: 20px;
-    font-family: ‘Open Sans’;
+    font-family: 'Open Sans', serif;
     font-weight: 900;
     color: #202020;
     cursor: pointer;
 }
 .count{
     font-size: 20px;
-    font-family: ‘Open Sans’;
+    font-family: 'Open Sans', serif;
     font-weight: 900;
     color: #202020;
 }
@@ -191,14 +191,14 @@ input {
 .cart-item-amount{
     padding-top: 20px;
     font-size: 26px;
-    font-family: ‘Open Sans’;
+    font-family: 'Open Sans', serif;
     font-weight: 800;
     color: #202020;
 }
 .cart-item-save{
     padding-top: 5px;
     font-size: 14px;
-    font-family: ‘Open Sans’;
+    font-family: 'Open Sans', serif;
     font-weight: 600;
     color: #1687d9;
     cursor: pointer;
@@ -206,7 +206,7 @@ input {
 .cart-item-remove{
     padding-top: 5px;
     font-size: 14px;
-    font-family: ‘Open Sans’;
+    font-family: 'Open Sans', serif;
     font-weight: 600;
     color: #E44C4C;
     cursor: pointer;
@@ -223,20 +223,20 @@ input {
 }
 .cart-subtotal{
     font-size: 22px;
-    font-family: ‘Open Sans’;
+    font-family: 'Open Sans', serif;
     font-weight: 700;
     color: #202020;
 }
 .cart-items{
     font-size: 16px;
-    font-family: ‘Open Sans’;
+    font-family: 'Open Sans', serif;
     font-weight: 500;
     color: #909090;
     line-height: 10px;
 }
 .cart-total-amount{
     font-size: 36px;
-    font-family: ‘Open Sans’;
+    font-family: 'Open Sans', serif;
     font-weight: 900;
     color: #202020;
 }
@@ -249,7 +249,7 @@ input {
     border-radius: 20px;
     cursor: pointer;
     font-size: 16px;
-    font-family: ‘Open Sans’;
+    font-family: 'Open Sans', serif;
     font-weight: 600;
     color: #202020;
 }

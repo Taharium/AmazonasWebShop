@@ -7,6 +7,7 @@ DROP TABLE amazonas_webshop.person;
 DROP TABLE amazonas_webshop.address;
 
 DELETE FROM amazonas_webshop.ordered_products WHERE true;
+DELETE FROM amazonas_webshop.basket WHERE true;
 DELETE FROM amazonas_webshop.product  WHERE true;
 DELETE FROM amazonas_webshop.order WHERE true;
 DELETE FROM amazonas_webshop.user WHERE true;
