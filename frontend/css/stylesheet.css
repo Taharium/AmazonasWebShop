@@ -88,6 +88,12 @@ input {
     width: 100%;
 }
 
+#Imgdetailedproduct {
+    object-fit: contain;
+    aspect-ratio: 6/4;
+    width: 100%;
+}
+
 /*Basket CSS*/
 .cart-body{
     margin: 0;

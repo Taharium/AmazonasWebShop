@@ -20,7 +20,7 @@ function load_SpecificProduct() {
                         '<div class="d-flex flex-grow-1">' +
                         '   <div class="d-flex align-items-center justify-content-center flex-wrap col-4">' +
                         '       <div class="d-flex justify-content-center">' +
-                        '           <img class="imgProducts" src="' + response[6] + '" alt="' + response[4] + '">' +
+                        '           <img id="Imgdetailedproduct" src="' + response[6] + '" alt="' + response[4] + '">' +
                         '       </div>' +
                         '       <div class="d-flex justify-content-center mt-2">' +
                         '           <span class="h5">' + response[1] + '</span>' +
@@ -39,7 +39,7 @@ function load_SpecificProduct() {
                         '           </div>' +
                         '           <div class="d-flex justify-content-center counter">\n' +
                         '               <div class="btn-basket">+</div>\n' +
-                        '               <div class="count">2</div>\n' +
+                        '               <div class="count">1</div>\n' +
                         '               <div class="btn-basket">-</div>\n' +
                         '           </div>' +
                         '           <div class="d-flex justify-content-center">' +
