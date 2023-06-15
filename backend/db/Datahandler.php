@@ -71,14 +71,18 @@ class Datahandler
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param("i", $id);
         $stmt->execute();
-        return $stmt->get_result()->fetch_row();
+        $tmp = $stmt->get_result()->fetch_row();
+        if($tmp == null) {
+            return "No items";
+        }
+        return $tmp;
     }
     public function Remove_Item_From_Basket($productID, $email){
 
         $userID = $this->Get_User_ID_From_Email($email);
-        $stmt = $this->conn->prepare("DELETE FROM basket WHERE fk_prod_ID = ? AND fk_user_ID = ?");
-        $stmt->bind_param("ii", $productID, $userID[0]);
-
+        $query = "DELETE FROM basket WHERE fk_prod_ID = ? AND fk_user_ID = ".$userID[0];
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("i", $productID);
 
         if ($stmt->execute()) {
             // Deletion successful
@@ -92,20 +96,32 @@ class Datahandler
     public function Add_Item_To_Basket($productID, $email, $amount){
         $userID = $this->Get_User_ID_From_Email($email);
 
+        $prodArr = $this->Get_Prod_ID_From_User_ID($userID[0]);
+
+        foreach ($prodArr as $prod){
+            if($prod[0] === $productID) {
+                return "Item already in basket";
+            }
+        }
+
         $insert = "INSERT INTO basket (fk_prod_ID, fk_user_ID, amount) VALUES (?, ?, ?)";
         $stmt = $this->conn->prepare($insert);
         $stmt->bind_param("iii", $productID, $userID, $amount);
 
         if ($stmt->execute()) {
             // Insertion successful
-            return "Item added to the basket.";
+            return "Item added to the basket";
         } else {
             // Error occurred
-            return "Error adding item to the basket.";
+            return "Error adding item to the basket";
         }
 
     }
 
+    public function Get_Prod_ID_From_User_ID($userID){
+        $query = "SELECT fk_prod_ID FROM amazonas_webshop.basket WHERE fk_user_ID = {$userID}";
+        return $this->conn->query($query)->fetch_all();
+    }
 
 
     public function Get_User_ID_From_Email($email){

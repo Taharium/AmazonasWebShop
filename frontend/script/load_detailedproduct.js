@@ -26,9 +26,6 @@ function load_SpecificProduct() {
                         '           <span class="h5">' + response[1] + '</span>' +
                         '       </div>' +
                         '   </div>' +
-                        /*'   <div class="d-flex justify-content-center mt-2">' +
-                        '       <span class="h5">' + response[3] + '€</span>' +
-                        '   </div>' +*/
                         '   <div class="d-flex justify-content-center align-items-center col-12 col-sm-12 col-md-6 col-xl-6">' +
                         '       <p class="text-black">' + response[2] + '</p>' +
                         '   </div>' +
@@ -37,20 +34,35 @@ function load_SpecificProduct() {
                         '           <div class="d-flex justify-content-center">' +
                         '               <span class="h5">Preis: ' + response[3] + '€</span>' +
                         '           </div>' +
-                        '           <div class="d-flex justify-content-center counter">\n' +
-                        '               <div class="btn-basket">+</div>\n' +
-                        '               <div id = "into-basket-amount" class="count">1</div>\n' +
-                        '               <div class="btn-basket">-</div>\n' +
+                        '           <div class="d-flex justify-content-center align-items-center mb-2">' +
+                        '               <div id="plus_prod" class="cart-btn me-2">+ </div>' +
+                        '               <div id = "into-basket-amount" class="count">1</div>' +
+                        '               <div id="minus_prod" class="cart-btn ms-2"> -</div>' +
                         '           </div>' +
-                        '           <div class="d-flex justify-content-center">' +
-                        '               <a class="btn btn-outline-primary" id="into-basket" type="button" ">In den Warenkorb</a>' +
+                        '           <div id="addToBasketDIV" class="d-flex justify-content-center">' +
+                        '               <a class="btn btn-outline-primary" id="into-basket" type="button">In den Warenkorb</a>' +
                         '           </div>' +
                         '       </div>' +
                         '   </div>'+
                         '</div>'
                     );
+
+                    $("#plus_prod").on("click", function () {
+                        let amount = parseInt($("#into-basket-amount").text());
+                        amount++;
+                        $("#into-basket-amount").text(amount);
+                    });
+
+                    $("#minus_prod").on("click", function () {
+                        let amount = parseInt($("#into-basket-amount").text());
+                        if(amount > 1){
+                            amount--;
+                            $("#into-basket-amount").text(amount);
+                        }
+                    });
+
                     $('#into-basket').on("click", function () {
-                        addToBasket($("#into-basket-amount").text());
+                        addItemToBasket($("#into-basket-amount").text());
                     } );
                 }
             },
@@ -64,7 +76,7 @@ function load_SpecificProduct() {
     }
 }
 
-function addToBasket(amount){
+function addItemToBasket(amount){
     let prodId=localStorage.getItem("product_id");
     let email=getCookie("username");
 
@@ -80,13 +92,18 @@ function addToBasket(amount){
         data: {method: method, param: param},
         dataType: "json",
         success: function (response) {
-            console.log(response);
-            if (response !== "No Product") {
+            if (response !== "Error adding item to the basket") {
                 console.log(response);
+                $("#addToBasketDIV").empty();
+                if (response === "Item already in basket") {
+                    $("#addToBasketDIV").append('<p class="btn btn-danger" id="into-basket" type="button">Already in Basket</p>');
+                } else {
+                    $("#addToBasketDIV").append('<p class="btn btn-success" id="into-basket" type="button">Successful</p>');
+                }
             }
         },
         error: function (error) {
             console.log(error);
         }
-    } );
+    });
 }
