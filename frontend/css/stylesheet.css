@@ -170,7 +170,7 @@ input {
     justify-content: space-between;
     align-items: center;
 }
-.btn-basket{
+.cart-btn{
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -258,4 +258,9 @@ input {
     font-family: 'Open Sans', serif;
     font-weight: 600;
     color: #202020;
+}
+.hr-checkout{
+    width: 66%;
+    float: right;
+    margin-right: 5%;
 }
