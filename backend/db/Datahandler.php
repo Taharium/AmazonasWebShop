@@ -73,7 +73,29 @@ class Datahandler
         $stmt->execute();
         return $stmt->get_result()->fetch_row();
     }
+    public function Remove_Item_From_Basket($productID, $email){
 
+        $userID = $this->Get_User_ID_From_Email($email);
+
+        $query = "DELETE FROM amazonas_webshop.basket WHERE fk_prod_ID = ? AND fk_user_ID = $userID[0]";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("i", $productID);
+        $stmt->execute();
+        $tmp = $stmt->get_result()->fetch_all();
+        if ($tmp == null) {
+            return "No items";
+        }
+
+        return $tmp;
+    }
+
+    public function Get_User_ID_From_Email($email){
+        $query = "SELECT pers_ID FROM amazonas_webshop.person WHERE email = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_row();
+    }
 
 
     public function Get_Userdata($param){

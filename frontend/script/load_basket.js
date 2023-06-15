@@ -1,10 +1,16 @@
 load_basket();
 function load_basket(){
+
+
     console.log("load_basket");
+
+
     let method = "getBasket";
     let param = getCookie("username");
     console.log(param);
     console.log(method);
+
+
 
     $.ajax({
         type: "GET",
@@ -13,14 +19,13 @@ function load_basket(){
         dataType: "json",
         success: function(response) {
             console.log(response);
-            if(response !== "No items") {
-                for (let i = 0; i < response.length; i++) {
-                    console.log(response[i]);
-                    getProductInformation(response[i][0], response[i][1]);
-                }
-            } else {
-                $("#cart-list").append('<li class="d-flex justify-content-center h5">No items in Basket</li>');
+            for (i = 0; i < response.length; i++) {
+                console.log(response[i]);
+                getProductInformation(response[i][0], response[i][1]);
+
+
             }
+
         },
         error: function(error) {
             console.log(error);
@@ -30,8 +35,8 @@ function load_basket(){
 
 
 
-function addToBasketList(itemName, itemSubtitle, itemPrice, itemAmount, imgPath) {
-    let cartItem = $(`
+function addToBasketList(itemName, itemSubtitle, itemPrice, itemAmount, imgPath, productId) {
+    var cartItem = $(`
     <div class="Cart-Items">
         <div class="cart-image-box">
             <img src="${imgPath}" style="height: 120px">
@@ -47,13 +52,15 @@ function addToBasketList(itemName, itemSubtitle, itemPrice, itemAmount, imgPath)
             <div class="cart-btn">-</div>
         </div>
         <div class="cart-item-prices">
-            <div class="cart-item-amount">${itemPrice} €</div>
+            <div class="cart-item-amount">${itemPrice}</div>
             <div class="cart-item-save"><u>Save for later</u></div>
-            <div class="cart-item-remove"><u>Remove</u></div>
+            <div class="cart-item-remove" data-product-id="${productId}"><u>Remove</u></div>
         </div>
     </div>
 `);
-
+    cartItem.find(".cart-item-remove").on("click", function() {
+        removeItemFromBasket($(this).attr("data-product-id"));
+    } );
 
     $('#cart-list').append(cartItem);
 }
@@ -81,8 +88,30 @@ function getProductInformation(product_id, amount) {
                 console.log("subtitle: "+response[3])
                 console.log("price: "+response[1])
                 console.log("imgPath: "+response[2])
-               addToBasketList(response[0], response[3], response[1], amount, response[2]);
+                addToBasketList(response[0], response[3], response[1], amount, response[2], product_id);
 
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    } );
+}
+
+function removeItemFromBasket(product_id) {
+
+    let method = "removeItemFromBasket";
+    let param = [product_id, getCookie("username")];
+
+    console.log(param);
+    console.log(method);
+
+    $.ajax({
+        type: "GET",
+        url: "../../backend/service_handler.php",
+        data: {method: method, param: param},
+        dataType: "json",
+        success: function(response) {
+            load_basket();
         },
         error: function(error) {
             console.log(error);
