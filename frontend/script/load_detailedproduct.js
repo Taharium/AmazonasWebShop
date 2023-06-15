@@ -66,12 +66,12 @@ function load_SpecificProduct() {
 
 function addToBasket(amount){
     let prodId=localStorage.getItem("product_id");
-    let userId=getCookie("username");
+    let email=getCookie("username");
 
-    let method = "addToBasket";
-    let param = {prodId: prodId, userId: userId, amount: amount};
+    let method = "addItemToBasket";
+    let param = {prodId: prodId, email: email, amount: amount};
     console.log(param);
-    console.log(userId);
+    console.log(email);
     console.log(prodId);
 
     $.ajax({
