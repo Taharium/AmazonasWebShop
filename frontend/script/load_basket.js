@@ -1,16 +1,10 @@
 load_basket();
 function load_basket(){
-
-
     console.log("load_basket");
-
-
     let method = "getBasket";
     let param = getCookie("username");
     console.log(param);
     console.log(method);
-
-
 
     $.ajax({
         type: "GET",
@@ -19,13 +13,14 @@ function load_basket(){
         dataType: "json",
         success: function(response) {
             console.log(response);
-            for (i = 0; i < response.length; i++) {
-                console.log(response[i]);
-                var productInformation = getProductInformation(response[i][0], response[i][1]);
-
-
+            if(response !== "No items") {
+                for (let i = 0; i < response.length; i++) {
+                    console.log(response[i]);
+                    getProductInformation(response[i][0], response[i][1]);
+                }
+            } else {
+                $("#cart-list").append('<li class="d-flex justify-content-center h5">No items in Basket</li>');
             }
-
         },
         error: function(error) {
             console.log(error);
@@ -36,7 +31,7 @@ function load_basket(){
 
 
 function addToBasketList(itemName, itemSubtitle, itemPrice, itemAmount, imgPath) {
-    var cartItem = $(`
+    let cartItem = $(`
     <div class="Cart-Items">
         <div class="cart-image-box">
             <img src="${imgPath}" style="height: 120px">
@@ -52,7 +47,7 @@ function addToBasketList(itemName, itemSubtitle, itemPrice, itemAmount, imgPath)
             <div class="cart-btn">-</div>
         </div>
         <div class="cart-item-prices">
-            <div class="cart-item-amount">${itemPrice}</div>
+            <div class="cart-item-amount">${itemPrice} €</div>
             <div class="cart-item-save"><u>Save for later</u></div>
             <div class="cart-item-remove"><u>Remove</u></div>
         </div>

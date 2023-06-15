@@ -59,7 +59,11 @@ class Datahandler
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param("s", $email);
         $stmt->execute();
-        return $stmt->get_result()->fetch_all();
+        $tmp = $stmt->get_result()->fetch_all();
+        if ($tmp == null) {
+            return "No items";
+        }
+        return $tmp;
     }
 
     public function Get_Product_Information($id){
