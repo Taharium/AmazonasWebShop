@@ -101,8 +101,21 @@ class Datahandler
     }
 
     public function getOrders($param) {
-        //TODO: SQL Query for getting orders
-        return "No orders";
+        $sql = "SELECT date, amount, price, picture, product_name, short_description
+                    FROM `order`
+                    INNER JOIN ordered_products ON `order`.r_ID = ordered_products.fk_r_ID
+                    INNER JOIN product ON ordered_products.fk_prod_ID = product.prod_ID
+                    INNER JOIN user ON `order`.fk_user_ID = user.user_ID
+                    INNER JOIN person ON user.fk_pers_ID = person.pers_ID
+                    WHERE email = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("s", $param);
+        $stmt->execute();
+        $tmp = $stmt->get_result()->fetch_all();
+        if ($tmp == null) {
+            return "No orders";
+        }
+        return $tmp;
     }
 
     public function getProducts(){

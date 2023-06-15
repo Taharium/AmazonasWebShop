@@ -44,19 +44,21 @@ INSERT INTO product (prod_ID, short_description, price, product_name, long_descr
 
 INSERT INTO `order` (r_ID, date, status, fk_user_ID) VALUES
     (1, '2018-12-05 15:00:00', 1, 1),
-    (2, '2018-12-05 15:00:00', 1, 2),
-    (3, '2018-12-05 15:00:00', 1, 3),
-    (4, '2018-12-05 15:00:00', 1, 4),
-    (5, '2018-12-05 15:00:00', 1, 5);
+    (2, '2018-12-05 15:00:00', 1, 1),
+    (3, '2018-12-05 15:00:00', 1, 2),
+    (4, '2018-12-05 15:00:00', 1, 3),
+    (5, '2018-12-05 15:00:00', 1, 4),
+    (6, '2018-12-05 15:00:00', 1, 5);
 
 -- insert statement for the ordered_products table
 
 INSERT INTO ordered_products (fk_prod_ID, fk_r_ID, amount) VALUES
     (1, 1, 4),
-    (2, 2, 6),
-    (3, 3, 7),
-    (4, 4, 2),
-    (5, 5, 3);
+    (2, 2, 5),
+    (3, 2, 6),
+    (4, 3, 7),
+    (5, 4, 2),
+    (6, 5, 3);
 
 -- insert into basket table 1 product for user with id 1
 

@@ -96,3 +96,7 @@ CREATE TABLE basket (
 );
 
 -- --------------------------------------------------------
+
+-- write an sql to select all orders form table order and ordered_products of a user using the email address
+
+
