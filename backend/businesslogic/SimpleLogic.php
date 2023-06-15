@@ -79,6 +79,9 @@ class SimpleLogic
             case 'removeItemFromBasket':
                 $res = $this->handler->Remove_Item_From_Basket($param["productID"], $param["email"]);
                 break;
+            case 'addItemToBasket':
+                $res = $this->handler->Add_Item_To_Basket($param["prodId"], $param["userId"], $param["amount"]);
+                break;
             default:
                 $res = null;
                 break;

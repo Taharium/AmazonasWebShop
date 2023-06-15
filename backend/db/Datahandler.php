@@ -87,8 +87,22 @@ class Datahandler
             // Error occurred
             return "Error deleting item from the basket.";
         }
-
     }
+    public function Add_Item_To_Basket($productID, $userID, $amount){
+
+        $stmt = $this->conn->prepare("INSERT INTO basket (fk_prod_ID, fk_user_ID, amount) VALUES (?, ?, ?)");
+        $stmt->bind_param("iii", $productID, $userID, $amount);
+
+        if ($stmt->execute()) {
+            // Insertion successful
+            return "Item added to the basket.";
+        } else {
+            // Error occurred
+            return "Error adding item to the basket.";
+        }
+    }
+
+
 
     public function Get_User_ID_From_Email($email){
         $query = "SELECT pers_ID FROM amazonas_webshop.person WHERE email = ?";

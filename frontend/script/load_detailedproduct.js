@@ -39,17 +39,19 @@ function load_SpecificProduct() {
                         '           </div>' +
                         '           <div class="d-flex justify-content-center counter">\n' +
                         '               <div class="btn-basket">+</div>\n' +
-                        '               <div class="count">1</div>\n' +
+                        '               <div id = "into-basket-amount" class="count">1</div>\n' +
                         '               <div class="btn-basket">-</div>\n' +
                         '           </div>' +
                         '           <div class="d-flex justify-content-center">' +
-                        '               <a class="btn btn-outline-primary" type="button" ">In den Warenkorb</a>' +
+                        '               <a class="btn btn-outline-primary" id="into-basket" type="button" ">In den Warenkorb</a>' +
                         '           </div>' +
                         '       </div>' +
                         '   </div>'+
                         '</div>'
-
                     );
+                    $('#into-basket').on("click", function () {
+                        addToBasket($("#into-basket-amount").text());
+                    } );
                 }
             },
             error: function (error) {
@@ -60,4 +62,31 @@ function load_SpecificProduct() {
     } else {
         window.location.href = "../web/products.html";
     }
+}
+
+function addToBasket(amount){
+    let prodId=localStorage.getItem("product_id");
+    let userId=getCookie("username");
+
+    let method = "addToBasket";
+    let param = {prodId: prodId, userId: userId, amount: amount};
+    console.log(param);
+    console.log(userId);
+    console.log(prodId);
+
+    $.ajax({
+        type: "GET",
+        url: "../../backend/service_handler.php",
+        data: {method: method, param: param},
+        dataType: "json",
+        success: function (response) {
+            console.log(response);
+            if (response !== "No Product") {
+                console.log(response);
+            }
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    } );
 }
