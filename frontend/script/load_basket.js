@@ -1,10 +1,12 @@
 let totalPrice = 0;
+let itemCount = 0;
 load_basket();
 function load_basket(){
 
 
     console.log("load_basket");
     totalPrice = 0;
+    itemCount = 0;
     $('#total-price').text(totalPrice);
 
     let method = "getBasket";
@@ -92,7 +94,9 @@ function getProductInformation(product_id, amount) {
                 console.log("imgPath: "+response[2])
                 addToBasketList(response[0], response[3], response[1]*amount, amount, response[2], product_id);
                 totalPrice += response[1]*amount;
+                itemCount += 1;
                 $('#total-price').text(totalPrice);
+                $('#item-count').text(itemCount);
 
         },
         error: function(error) {
