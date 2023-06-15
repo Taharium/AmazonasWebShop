@@ -70,6 +70,12 @@ class SimpleLogic
             case 'getOrders':
                 $res = $this->handler->getOrders($param);
                 break;
+                case 'getBasket':
+                    $res = $this->handler->Get_Basket_Items($param);
+                    break;
+            case 'getProductInformation':
+                $res = $this->handler->Get_Product_Information($param);
+                break;
             default:
                 $res = null;
                 break;

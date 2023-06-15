@@ -50,6 +50,25 @@ class Datahandler
         $tmp = $stmt->get_result()->fetch_assoc();
         return $tmp["password"];
     }
+    public function Get_Basket_Items($email){
+
+        $query = "SELECT fk_prod_ID, amount FROM amazonas_webshop.basket
+                  JOIN amazonas_webshop.user ON amazonas_webshop.basket.fk_user_ID = amazonas_webshop.user.user_ID
+                  JOIN amazonas_webshop.person ON amazonas_webshop.user.fk_pers_ID = amazonas_webshop.person.pers_ID
+                  WHERE email = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all();
+    }
+
+    public function Get_Product_Information($id){
+        $query = "SELECT product_name, price, picture, short_description FROM amazonas_webshop.product WHERE prod_ID = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_row();
+    }
 
 
 
