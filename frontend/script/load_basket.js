@@ -1,9 +1,11 @@
+let totalPrice = 0;
 load_basket();
 function load_basket(){
 
 
     console.log("load_basket");
-
+    totalPrice = 0;
+    $('#total-price').text(totalPrice);
 
     let method = "getBasket";
     let param = getCookie("username");
@@ -88,7 +90,9 @@ function getProductInformation(product_id, amount) {
                 console.log("subtitle: "+response[3])
                 console.log("price: "+response[1])
                 console.log("imgPath: "+response[2])
-                addToBasketList(response[0], response[3], response[1], amount, response[2], product_id);
+                addToBasketList(response[0], response[3], response[1]*amount, amount, response[2], product_id);
+                totalPrice += response[1]*amount;
+                $('#total-price').text(totalPrice);
 
         },
         error: function(error) {
@@ -100,7 +104,7 @@ function getProductInformation(product_id, amount) {
 function removeItemFromBasket(product_id) {
 
     let method = "removeItemFromBasket";
-    let param = [product_id, getCookie("username")];
+    let param = {productID: product_id, email: getCookie("username")}
 
     console.log(param);
     console.log(method);

@@ -76,17 +76,18 @@ class Datahandler
     public function Remove_Item_From_Basket($productID, $email){
 
         $userID = $this->Get_User_ID_From_Email($email);
+        $stmt = $this->conn->prepare("DELETE FROM basket WHERE fk_prod_ID = ? AND fk_user_ID = ?");
+        $stmt->bind_param("ii", $productID, $userID[0]);
 
-        $query = "DELETE FROM amazonas_webshop.basket WHERE fk_prod_ID = ? AND fk_user_ID = $userID[0]";
-        $stmt = $this->conn->prepare($query);
-        $stmt->bind_param("i", $productID);
-        $stmt->execute();
-        $tmp = $stmt->get_result()->fetch_all();
-        if ($tmp == null) {
-            return "No items";
+
+        if ($stmt->execute()) {
+            // Deletion successful
+            return "Item deleted from the basket.";
+        } else {
+            // Error occurred
+            return "Error deleting item from the basket.";
         }
 
-        return $tmp;
     }
 
     public function Get_User_ID_From_Email($email){

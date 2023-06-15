@@ -77,7 +77,7 @@ class SimpleLogic
                 $res = $this->handler->Get_Product_Information($param);
                 break;
             case 'removeItemFromBasket':
-                $res = $this->handler->Remove_Item_From_Basket($param[0], $param[1]);
+                $res = $this->handler->Remove_Item_From_Basket($param["productID"], $param["email"]);
                 break;
             default:
                 $res = null;

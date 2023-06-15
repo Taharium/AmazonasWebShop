@@ -62,5 +62,5 @@ INSERT INTO ordered_products (fk_prod_ID, fk_r_ID, amount) VALUES
 
 -- insert into basket table 1 product for user with id 1
 
-INSERT INTO basket (fk_prod_ID, fk_user_ID, amount) VALUES
-    (1, 1, 1);
+INSERT INTO basket (fk_user_ID, fk_prod_ID, amount) VALUES (1, 1, 3);
+INSERT INTO basket (fk_user_ID, fk_prod_ID, amount) VALUES (1, 2, 4);
