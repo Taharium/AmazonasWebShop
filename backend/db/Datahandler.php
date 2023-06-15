@@ -100,6 +100,11 @@ class Datahandler
         return $tmp;
     }
 
+    public function getOrders($param) {
+        //TODO: SQL Query for getting orders
+        return "No orders";
+    }
+
     public function getProducts(){
         $sql = "SELECT * FROM amazonas_webshop.product";
         $stmt = $this->conn->prepare($sql);

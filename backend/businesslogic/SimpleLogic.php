@@ -67,6 +67,9 @@ class SimpleLogic
             //         error_log($key." ".$value);
             //  }
                 break;
+            case 'getOrders':
+                $res = $this->handler->getOrders($param);
+                break;
             default:
                 $res = null;
                 break;

@@ -57,11 +57,13 @@ function cookies() {
         $("#navBasket").show();
         $("#navReg").hide();
         $("#navLogin").hide();
+        $("#navOrders").show();
         console.log("Cookie is set");
     } else {
         $("#navLogout").hide();
         $("#navAccount").hide();
         $("#navBasket").hide();
+        $("#navOrders").hide();
         $("#navReg").show();
         $("#navLogin").show();
         console.log("Cookie is not set");
