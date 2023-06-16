@@ -10,9 +10,6 @@ function loadNavbar() {
     } );
 }
 
-$("#account_details")
-
-
 $("#carousel").hide();
 
 setTimeout(function () {

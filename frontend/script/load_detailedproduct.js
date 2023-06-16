@@ -1,7 +1,7 @@
 load_SpecificProduct();
+
 function load_SpecificProduct() {
     console.log("load_SpecificProduct");
-    console.log("HALLOOOOOOO!!");
     let param = localStorage.getItem("product_id");
     if(param !== null) {
         console.log(param);
@@ -19,18 +19,20 @@ function load_SpecificProduct() {
                         '<h1 class="h1 mt-3 mb-4">' + response[4] + '</h1>' +
                         '<div class="d-flex flex-grow-1">' +
                         '   <div class="d-flex align-items-center justify-content-center flex-wrap col-4">' +
-                        '       <div class="d-flex justify-content-center">' +
-                        '           <img id="Imgdetailedproduct" src="' + response[6] + '" alt="' + response[4] + '">' +
-                        '       </div>' +
-                        '       <div class="d-flex justify-content-center mt-2">' +
-                        '           <span class="h5">' + response[1] + '</span>' +
-                        '       </div>' +
+                        // '       <div class="cardBody backgroundWS ">' +
+                        '           <div class="d-flex justify-content-center">' +
+                        '               <img class="Imgdetailedproduct" src="' + response[6] + '" alt="' + response[4] + '">' +
+                        '           </div>' +
+                        '           <div class="d-flex justify-content-center mt-3 mb-2">' +
+                        '               <span class="h5">' + response[1] + '</span>' +
+                        '           </div>' +
+                        // '       </div>' +
                         '   </div>' +
                         '   <div class="d-flex justify-content-center align-items-center col-12 col-sm-12 col-md-6 col-xl-6">' +
                         '       <p class="text-black">' + response[2] + '</p>' +
                         '   </div>' +
                         '   <div class="d-flex justify-content-center align-items-center">' +
-                        '       <div class="card m-3 p-3 backgroundWS" >' +
+                        '       <div class="cardBody m-3 p-3 backgroundWS" >' +
                         '           <div class="d-flex justify-content-center">' +
                         '               <span class="h5">Preis: ' + response[3] + '€</span>' +
                         '           </div>' +
@@ -40,8 +42,9 @@ function load_SpecificProduct() {
                         '               <div id="minus_prod" class="cart-btn ms-2"> -</div>' +
                         '           </div>' +
                         '           <div id="addToBasketDIV" class="d-flex justify-content-center">' +
-                        '               <a class="btn btn-outline-primary" id="into-basket" type="button">In den Warenkorb</a>' +
+                        '               <button class="btn btn-outline-primary" id="into-basket" type="button">In den Warenkorb</button>' +
                         '           </div>' +
+                        '           <div id="liveAlert" class="d-flex justify-content-center"></div>' +
                         '       </div>' +
                         '   </div>'+
                         '</div>'
@@ -50,6 +53,7 @@ function load_SpecificProduct() {
                     $("#plus_prod").on("click", function () {
                         let amount = parseInt($("#into-basket-amount").text());
                         amount++;
+
                         $("#into-basket-amount").text(amount);
                     });
 
@@ -94,11 +98,17 @@ function addItemToBasket(amount){
         success: function (response) {
             if (response !== "Error adding item to the basket") {
                 console.log(response);
-                $("#addToBasketDIV").empty();
-                if (response === "Item already in basket") {
-                    $("#addToBasketDIV").append('<p class="btn btn-danger" id="into-basket" type="button">Already in Basket</p>');
+                $("#liveAlert").empty();
+                if (response === "Error updating item in the basket") {
+                    $("#liveAlert").append('<span class="text-danger my-1">error</span>');
+                    setTimeout(function () {
+                        $("#liveAlert").empty();
+                    }, 2000);
                 } else {
-                    $("#addToBasketDIV").append('<p class="btn btn-success" id="into-basket" type="button">Successful</p>');
+                    $("#liveAlert").append('<span class="text-success my-1">success</span>');
+                    setTimeout(function () {
+                        $("#liveAlert").empty();
+                    }, 2000);
                 }
             }
         },

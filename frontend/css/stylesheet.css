@@ -1,6 +1,9 @@
 body {
     margin: 0;
     min-height: 100vh;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    background-size: cover;
 }
 
 nav {
@@ -23,6 +26,13 @@ h5 {
     color: whitesmoke;
     margin-bottom: auto;
     margin-top: auto;
+}
+
+.cardBody {
+    border-radius: 5px;
+    border-style: solid;
+    border-color: lightgray;
+    border-width: 1px;
 }
 
 .accordion-header {
@@ -88,11 +98,44 @@ input {
     width: 100%;
 }
 
-#Imgdetailedproduct {
+.Imgdetailedproduct {
     object-fit: contain;
     aspect-ratio: 6/4;
     width: 100%;
 }
+
+.imgBasket {
+    object-fit: contain;
+    aspect-ratio: 1/1;
+    width: 100%;
+}
+
+#searchBox {
+    position:relative;
+}
+
+#searchAppointment {
+    font-size: 24px;
+    height: 50px;
+}
+
+#searchResults {
+    position: absolute;
+    z-index: 100;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    background-color: white;
+    border: 1px solid #d9d9d9;
+    border-radius: 5px;
+}
+
+.searchResult:hover {
+    background-color: rgba(13, 110, 253, 0.11);
+    cursor: pointer;
+}
+
+
 
 /*Basket CSS*/
 .cart-body{
@@ -105,6 +148,8 @@ input {
     align-items: center;
 }
 .CartContainer{
+    overflow: auto;
+    padding: 20px 20px;
     width: 70%;
     height: 85%;
     background-color: #ffffff;

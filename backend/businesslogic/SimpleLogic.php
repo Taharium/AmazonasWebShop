@@ -82,6 +82,9 @@ class SimpleLogic
             case 'addItemToBasket':
                 $res = $this->handler->Add_Item_To_Basket($param["prodId"], $param["email"], $param["amount"]);
                 break;
+            case 'search':
+                $res = $this->handler->querySearchDetails($param);
+                break;
             default:
                 $res = null;
                 break;

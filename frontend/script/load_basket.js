@@ -39,9 +39,9 @@ function load_basket(){
 
 function addToBasketList(itemName, itemSubtitle, itemPrice, itemAmount, imgPath, productId) {
     let cartItem = $(`
-        <div class="Cart-Items">
+        <div class="Cart-Items mb-2">
             <div class="cart-image-box">
-                <img src="${imgPath}" style="height: 120px">
+                <img src="${imgPath}" class="imgBasket">
             </div>
             <div class="cart-item-about">
                 <p class="cart-item-title">${itemName}</p>

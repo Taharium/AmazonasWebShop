@@ -67,6 +67,7 @@ class Datahandler
     }
 
     public function Get_Product_Information($id){
+        error_log("Datahandler: Get_Product_Information");
         $query = "SELECT product_name, price, picture, short_description FROM amazonas_webshop.product WHERE prod_ID = ?";
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param("i", $id);
@@ -93,6 +94,21 @@ class Datahandler
         }
 
     }
+
+    public function Update_amount_of_Product($productID, $email, $amount){
+        $userID = $this->Get_User_ID_From_Email($email);
+        $update = "UPDATE basket SET amount = amount + ? WHERE fk_prod_ID = ? AND fk_user_ID = ?";
+        $stmt = $this->conn->prepare($update);
+        $stmt->bind_param("iii", $amount, $productID, $userID[0]);
+        if ($stmt->execute()) {
+            // Update successful
+            return "Item updated in the basket";
+        } else {
+            // Error occurred
+            return "Error updating item in the basket";
+        }
+    }
+
     public function Add_Item_To_Basket($productID, $email, $amount){
         $userID = $this->Get_User_ID_From_Email($email);
 
@@ -100,13 +116,14 @@ class Datahandler
 
         foreach ($prodArr as $prod){
             if($prod[0] === $productID) {
-                return "Item already in basket";
+                return $this->Update_amount_of_Product($productID, $email, $amount);
             }
         }
 
         $insert = "INSERT INTO basket (fk_prod_ID, fk_user_ID, amount) VALUES (?, ?, ?)";
         $stmt = $this->conn->prepare($insert);
-        $stmt->bind_param("iii", $productID, $userID, $amount);
+        $stmt->bind_param("iii", $productID, $userID[0], $amount);
+
 
         if ($stmt->execute()) {
             // Insertion successful
@@ -123,6 +140,20 @@ class Datahandler
         return $this->conn->query($query)->fetch_all();
     }
 
+    public function querySearchDetails($searchTerm) {
+        // searches keywords in details
+        $term = '%' . $searchTerm . '%';
+        $query = "SELECT prod_ID, product_name FROM amazonas_webshop.product WHERE product.product_name LIKE ? LIMIT 10";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("s", $term);
+        $stmt->execute();
+        $tmp = $stmt->get_result()->fetch_all();
+        if ($tmp == null) {
+            error_log("NULL1");
+            return "NULL";
+        }
+        return $tmp;
+    }
 
     public function Get_User_ID_From_Email($email){
         $query = "SELECT pers_ID FROM amazonas_webshop.person WHERE email = ?";
@@ -251,7 +282,9 @@ class Datahandler
         $stmt->bind_param("is", $id, $param["password"]);
         $stmt->execute();
 
-        $query = "SELECT * FROM amazonas_webshop.person
+        return "Success";
+
+        /*$query = "SELECT * FROM amazonas_webshop.person
                       JOIN amazonas_webshop.user ON amazonas_webshop.person.pers_ID = amazonas_webshop.user.fk_pers_ID
                       JOIN amazonas_webshop.address ON amazonas_webshop.person.fk_addr_ID = amazonas_webshop.address.addr_ID
                       WHERE email = ?";
@@ -262,6 +295,6 @@ class Datahandler
         if ($tmp == null) {
             return "NULL";
         }
-        return $tmp;
+        return $tmp;*/
     }
 }

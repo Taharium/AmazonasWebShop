@@ -48,9 +48,9 @@ function callAjax(type, param, method) {
                 case "registerUser":
                     if(data === "Email already exists") {
                         errorReg.text("Email already exists!");
-                    } else if(data === "NULL") {
+                    } /*else if(data === "NULL") {
                         errorReg.text("Bitte füllen Sie alle Felder aus!");
-                    } else {
+                    }*/ else {
                         console.log(data);
                         //$("form :input").val("");
                         setTimeout(function(){

@@ -15,7 +15,7 @@ function loadProducts(){
                    // console.log(response);
                     $.each(response, function (index, value) {
                         //console.log(value);
-                        $("#products").append('<div class="m-3 p-2 pb-3 card backgroundWS">' +
+                        $("#products").append('<div class="m-3 p-2 pb-3 cardBody backgroundWS">' +
                             '<div class="d-flex justify-content-center"><span class="h4">'+value[4] + ' ' + value[3]+'€</span></div>' +
                             '<div class="d-flex justify-content-start mt-2"><img class="imgProducts" src="'+value[6]+'" alt="'+value[4]+'"></div>' +
                             '<div class="d-flex justify-content-center mt-2"><span class="h5">'+value[1]+'</span></div>' +

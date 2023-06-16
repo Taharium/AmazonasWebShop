@@ -44,10 +44,12 @@
             <ul class="navbar-nav me-right mb-3 mb-lg-0">
 
                 <li>
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
-                    </form>
+                    <div id="searchBox" role="search">
+                        <input id="searchProduct" class="form-control me-2" type="search" onkeyup="searchProduct(this.value)" placeholder="Search" aria-label="Search">
+                        <div id="searchResults" class="form-control d-none"></div>
+
+<!--                        <button class="btn btn-outline-success" type="submit">Search</button>-->
+                    </div>
                 </li>
 
                 <li class="nav-item ms-3 mx-2" id="navBasket">
