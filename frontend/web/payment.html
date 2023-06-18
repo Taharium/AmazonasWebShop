@@ -5,23 +5,43 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="../script/validation.js" defer></script>
     <script src="../script/cookies.js" defer></script>
+    <script src="../script/ajax_login_signup.js" defer></script>
+    <script src="../script/search.js" defer></script>
 </head>
 <body>
-    <h1 class="h1 mt-3 mb-4">Payment</h1>    
+    <h1 class="h1 mt-3 mb-4">Payment</h1>   
+    <!--Da sollte die order stehen--> 
+    <!--Da sollte die order stehen--> 
+    <!--Da sollte die order stehen--> 
+    <!--Da sollte die order stehen--> 
+    <!--Da sollte die order stehen--> 
+    <!--Da sollte die order stehen--> 
         <div class="col-12 col-sm-12 col-md-6 col-xl-4 container mt-3">
-            <form id="paymentform" class="m-3" method="POST">
+            <form id="paymentform" method="POST">
                 <div class="cardBody backgroundWS">
-                    <label for="cardname">Name on Card</label>
-                    <input type="text" id="cardname" name="cardname" placeholder="Max Mustermann">
-                    <label for="cardnumber">Credit card number</label>
-                    <input type="number" id="cardnumber" name="cardnumber" placeholder="1111-2222-3333-4444">
-                    <label for="expmonth">Exp Month</label>
-                    <input type="number" id="expmonth" name="expmonth" placeholder="09">
-                    <label for="expyear">Exp Year</label>
-                    <input type="number" id="expyear" name="expyear" placeholder="2021">
-                    <label for="cvv">CVV</label>
-                    <input type="number" id="cvv" name="cvv" placeholder="352">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <div class="mb-3">
+                        <label class="form-label" for="cardname">Name on Card</label>
+                        <input type="text" id="cardname" class="form-control" name="cardname" placeholder="Max Mustermann" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="cardnumber">Credit card number</label>
+                        <input type="number" id="cardnumber" class="form-control" name="cardnumber" placeholder="1111-2222-3333-4444" required>
+                    </div>
+                <div class="mb-3 d-flex">
+                    <div class="me-1 col">
+                        <label class="form-label" for="expmonth">Exp Month</label>
+                        <input type="number" id="expmonth" class="form-control" name="expmonth" placeholder="09" required>
+                    </div>
+                    <div class="me-1 col">
+                        <label class="form-label" for="expyear">Exp Year</label>
+                        <input type="number" id="expyear" class="form-control" name="expyear" placeholder="2021" required>
+                    </div>
+                </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="cvv">CVV</label>
+                        <input type="number" id="cvv" class="form-control" name="cvv" min="3" max="3" placeholder="352" required>
+                    </div>
+                    <input class="btn btn-primary my-2" type="submit" value="Submit">
                 </div>
             </form>
         </div>

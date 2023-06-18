@@ -297,4 +297,8 @@ class Datahandler
         }
         return $tmp;*/
     }
+
+    public function paymentIntoDatabase($param) {
+        
+    }
 }

@@ -85,6 +85,9 @@ class SimpleLogic
             case 'search':
                 $res = $this->handler->querySearchDetails($param);
                 break;
+            case 'paymentIntoDatabase':
+                $res = $this->handler->paymentIntoDatabase($param);
+                break;
             default:
                 $res = null;
                 break;

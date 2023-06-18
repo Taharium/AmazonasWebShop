@@ -128,3 +128,7 @@ function removeItemFromBasket(product_id) {
         }
     } );
 }
+
+$("#checkout-button").on("click", function () {
+  window.location.href = "payment.html";
+});
