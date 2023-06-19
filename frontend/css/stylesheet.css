@@ -192,15 +192,21 @@ input {
 }
 .cart-item-about{
     padding-top: 30px;
+    flex: 1;
     height: 100%;
 }
 .cart-item-title{
     padding-top: 5px;
-    line-height: 10px;
     font-size: 32px;
     font-family: 'Open Sans', serif;
     font-weight: 800;
     color: #202020;
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Number of lines to show */
+    -webkit-box-orient: vertical;
 }
 .cart-item-subtitle{
     line-height: 10px;
@@ -214,6 +220,8 @@ input {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex: 0.3;
+
 }
 .cart-btn{
     width: 40px;
@@ -238,6 +246,7 @@ input {
 .cart-item-prices{
     height: 100%;
     text-align: right;
+    padding-left: 30px;
 }
 .cart-item-amount{
     padding-top: 20px;
@@ -308,4 +317,75 @@ input {
     width: 66%;
     float: right;
     margin-right: 5%;
+}
+
+@media (max-width: 768px) {
+    .CartContainer {
+        width: 90%;
+    }
+    .cart-header {
+        width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .cart-action {
+        margin-top: 10px;
+    }
+    .Cart-Items {
+        width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+        height: auto;
+    }
+    .cart-image-box {
+        width: 30%;
+    }
+    .cart-item-about {
+        width: 60%;
+        padding-top: 0;
+    }
+    .cart-item-title {
+        font-size: 24px;
+
+    }
+    .cart-item-subtitle {
+        font-size: 14px;
+    }
+    .counter {
+        width: 40%;
+        margin-top: 10px;
+        justify-content: center;
+    }
+    .cart-item-prices {
+        width: 100%;
+        text-align: left;
+    }
+    .cart-item-amount {
+        padding-top: 0;
+    }
+    .cart-checkout {
+        width: 100%;
+        margin-top: 20px;
+    }
+    .cart-total {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 10px;
+    }
+    .cart-subtotal {
+        font-size: 18px;
+    }
+    .cart-items {
+        font-size: 14px;
+    }
+    .cart-total-amount {
+        font-size: 24px;
+    }
+    .cart-button {
+        height: 36px;
+        font-size: 14px;
+    }
+    .hr-checkout {
+        width: 100%;
+    }
 }

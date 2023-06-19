@@ -131,6 +131,20 @@ class Datahandler
         return $this->conn->query($query)->fetch_all();
     }
 
+    public function Decrease_Amount_In_Basket($productID, $email){
+        $userID = $this->Get_User_ID_From_Email($email);
+        $update = "UPDATE basket SET amount = amount - 1 WHERE fk_prod_ID = ? AND fk_user_ID = ?";
+        $stmt = $this->conn->prepare($update);
+        $stmt->bind_param("ii", $productID, $userID[0]);
+        if ($stmt->execute()) {
+            // Update successful
+            return "Item updated in the basket";
+        } else {
+            // Error occurred
+            return "Error updating item in the basket";
+        }
+    }
+
     public function querySearchDetails($searchTerm) {
         // searches keywords in details
         $term = '%' . $searchTerm . '%';

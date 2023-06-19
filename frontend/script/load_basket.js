@@ -52,7 +52,7 @@ function addToBasketList(itemName, itemSubtitle, itemPrice, itemAmount, imgPath,
             <div class="cart-item-about">
                 <p class="cart-item-title">${itemName}</p>
                 <p class="cart-item-subtitle">${itemSubtitle}</p>
-                <!--<img src="../../pictures/basket/veg.png" alt="is_available" style="height: 30px">-->
+                <img class ="inventory-state" src="../../pictures/basket/veg.png" alt="is_available" style="height: 30px">
             </div>
             <div class="counter">
                 <div id="plus_basket" class="cart-btn">+</div>
@@ -76,6 +76,28 @@ function addToBasketList(itemName, itemSubtitle, itemPrice, itemAmount, imgPath,
             $("#cart-list").append('<li class="d-flex justify-content-center h5">No items in Basket</li>');
         }
     } );
+
+
+    cartItem.find("#plus_basket").on("click", function() {
+        increaseAmount($(this).parent().parent().find(".cart-item-remove").attr("data-product-id"));
+    } );
+
+    cartItem.find("#minus_basket").on("click", function() {
+        decreaseAmount($(this).parent().parent().find(".cart-item-remove").attr("data-product-id"), $(this).parent().parent().find(".count").text());
+    } );
+
+
+
+    $('.inventory-state').on('mouseover', function() {
+        $(this).attr('title', 'available');
+    });
+
+    $('.inventory-state').on('mouseout', function() {
+        $(this).removeAttr('title');
+    });
+
+
+
 
     $('#cart-list').append(cartItem);
 }
@@ -136,3 +158,60 @@ $("#removeAll").on("click", function () {
 $("#checkout-button").on("click", function () {
   window.location.href = "payment.html";
 });
+
+
+
+function increaseAmount(product_id) {
+    let method = "addItemToBasket";
+    let param = {prodId: product_id, email: getCookie("username"), amount: 1}
+    console.log(param);
+    console.log(method);
+
+    $.ajax({
+        type: "GET",
+        url: "../../backend/service_handler.php",
+        data: {method: method, param: param},
+        dataType: "json",
+        success: function(response) {
+            console.log(response);
+            load_basket();
+        },
+        error: function(error) {
+            console.log("error");
+            console.log(error);
+        }
+    } );
+
+}
+
+function decreaseAmount(product_id, currentAmount) {
+    console.log("currentAmount= " + currentAmount);
+    if (currentAmount == 1) {
+        console.log("removeItemFromBasket");
+        removeItemFromBasket(product_id);
+        load_basket();
+        return;
+    }
+    console.log("got here")
+
+    let method = "decreaseAmountInBasket";
+    let param = {productID: product_id, email: getCookie("username")}
+    console.log(param);
+    console.log(method);
+
+    $.ajax({
+        type: "GET",
+        url: "../../backend/service_handler.php",
+        data: {method: method, param: param},
+        dataType: "json",
+        success: function(response) {
+            console.log(response);
+            load_basket();
+        },
+        error: function(error) {
+            console.log(error);
+
+        }
+    } );
+
+}

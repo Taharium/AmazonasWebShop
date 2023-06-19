@@ -88,6 +88,9 @@ class SimpleLogic
             case 'paymentIntoDatabase':
                 $res = $this->handler->paymentIntoDatabase($param["param"]);
                 break;
+            case 'decreaseAmountInBasket':
+                $res = $this->handler->Decrease_Amount_In_Basket($param["productID"], $param["email"]);
+                break;
             default:
                 $res = null;
                 break;
