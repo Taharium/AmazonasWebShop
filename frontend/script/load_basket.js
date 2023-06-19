@@ -38,7 +38,7 @@ function load_basket(){
         error: function(error) {
             console.log(error);
         }
-    } );
+    });
 }
 
 
@@ -49,7 +49,7 @@ function addToBasketList(itemName, itemSubtitle, itemPrice, itemAmount, imgPath,
             <div class="cart-image-box">
                 <img src="${imgPath}" alt="${itemName}" class="imgBasket">
             </div>
-            <div class="cart-item-about">
+            <div class="cart-item-about ms-2">
                 <p class="cart-item-title">${itemName}</p>
                 <p class="cart-item-subtitle">${itemSubtitle}</p>
                 <img class ="inventory-state" src="../../pictures/basket/veg.png" alt="is_available" style="height: 30px">
@@ -66,6 +66,7 @@ function addToBasketList(itemName, itemSubtitle, itemPrice, itemAmount, imgPath,
         </div>
     `);
 
+
     cartItem.find(".cart-item-remove").on("click", function() {
         totalPrice -= $(this).parent().parent().find(".cart-item-amount").text().split(" ")[0];
         removeItemFromBasket($(this).attr("data-product-id"));
@@ -75,29 +76,27 @@ function addToBasketList(itemName, itemSubtitle, itemPrice, itemAmount, imgPath,
         if (itemCount === 0) {
             $("#cart-list").append('<li class="d-flex justify-content-center h5">No items in Basket</li>');
         }
-    } );
+    });
 
 
     cartItem.find("#plus_basket").on("click", function() {
-        increaseAmount($(this).parent().parent().find(".cart-item-remove").attr("data-product-id"));
-    } );
+        let amount = $(this).parent().parent().find(".count").text();
+        console.log(amount);
+        updateAmount($(this).parent().parent().find(".cart-item-remove").attr("data-product-id"), amount, $(this).parent().parent(), "+");
+    });
 
     cartItem.find("#minus_basket").on("click", function() {
-        decreaseAmount($(this).parent().parent().find(".cart-item-remove").attr("data-product-id"), $(this).parent().parent().find(".count").text());
-    } );
-
-
-
-    $('.inventory-state').on('mouseover', function() {
-        $(this).attr('title', 'available');
-    });
-
-    $('.inventory-state').on('mouseout', function() {
-        $(this).removeAttr('title');
+        let amount = $(this).parent().parent().find(".count").text();
+        console.log(amount);
+        if (amount > 1) {
+            updateAmount($(this).parent().parent().find(".cart-item-remove").attr("data-product-id"), amount, $(this).parent().parent(), "-");
+        }
     });
 
 
-
+    cartItem.find(".inventory-state").on('mouseover', function() {
+        $(this).attr('title', 'This item is available');
+    });
 
     $('#cart-list').append(cartItem);
 }
@@ -160,10 +159,11 @@ $("#checkout-button").on("click", function () {
 });
 
 
-
-function increaseAmount(product_id) {
+//TODO: vielleicht ausbessern --> zuerst amount entscheiden und dann ändern?
+function updateAmount(product_id, amount, selector, type) {
     let method = "addItemToBasket";
-    let param = {prodId: product_id, email: getCookie("username"), amount: 1}
+    let param = {prodId: product_id, email: getCookie("username"), amount: 1, type: type};
+
     console.log(param);
     console.log(method);
 
@@ -174,44 +174,26 @@ function increaseAmount(product_id) {
         dataType: "json",
         success: function(response) {
             console.log(response);
-            load_basket();
+            if(response === "Item updated in the basket +") {
+                selector.find("#amountOfProd").text(parseInt(amount) + 1);
+                let singlePrice = selector.find(".cart-item-amount").text().split(" ")[0] / amount;
+                let prodPrice = Number(selector.find(".cart-item-amount").text().split(" ")[0]) + singlePrice;
+                selector.find(".cart-item-amount").text(prodPrice + " €");
+                totalPrice += singlePrice;
+                $('#total-price').text(totalPrice);
+            } else {
+                selector.find("#amountOfProd").text(parseInt(amount) - 1);
+                let singlePrice = selector.find(".cart-item-amount").text().split(" ")[0] / amount;
+                let prodPrice = Number(selector.find(".cart-item-amount").text().split(" ")[0]) - singlePrice;
+                selector.find(".cart-item-amount").text(prodPrice + " €");
+                totalPrice -= singlePrice;
+                $('#total-price').text(totalPrice);
+            }
         },
         error: function(error) {
             console.log("error");
             console.log(error);
         }
-    } );
-
-}
-
-function decreaseAmount(product_id, currentAmount) {
-    console.log("currentAmount= " + currentAmount);
-    if (currentAmount == 1) {
-        console.log("removeItemFromBasket");
-        removeItemFromBasket(product_id);
-        load_basket();
-        return;
-    }
-    console.log("got here")
-
-    let method = "decreaseAmountInBasket";
-    let param = {productID: product_id, email: getCookie("username")}
-    console.log(param);
-    console.log(method);
-
-    $.ajax({
-        type: "GET",
-        url: "../../backend/service_handler.php",
-        data: {method: method, param: param},
-        dataType: "json",
-        success: function(response) {
-            console.log(response);
-            load_basket();
-        },
-        error: function(error) {
-            console.log(error);
-
-        }
-    } );
+    });
 
 }

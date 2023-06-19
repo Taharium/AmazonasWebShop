@@ -43,11 +43,11 @@ function addToBasketList(itemName, itemSubtitle, itemPrice, itemAmount, imgPath,
             <div class="cart-image-box">
                 <img src="${imgPath}" alt="${itemName}" class="imgBasket">
             </div>
-            <div class="cart-item-about">
+            <div class="cart-item-about ms-2">
                 <p class="cart-item-title">${itemName}</p>
                 <p class="cart-item-subtitle">${itemSubtitle}</p>
             </div>
-            <div class="counter" class="mt-1">
+            <div class="counter d-flex justify-content-center align-items-center">
                 <div id="amountOfProd" class="count">Anzahl: ${itemAmount}</div>
             </div>
             <div class="cart-item-prices">

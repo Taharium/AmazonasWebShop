@@ -94,7 +94,7 @@ function addItemToBasket(amount){
     let email= getCookie("username");
 
     let method = "addItemToBasket";
-    let param = {prodId: prodId, email: email, amount: amount};
+    let param = {prodId: prodId, email: email, amount: amount, type: "+"};
     console.log(param);
     console.log(email);
     console.log(prodId);

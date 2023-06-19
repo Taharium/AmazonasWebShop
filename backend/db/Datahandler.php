@@ -51,7 +51,6 @@ class Datahandler
         return $tmp["password"];
     }
 
-    //ändern auf eine function ohne get product information --> , product_name, price, picture, short_description mit JOIN amazonas_webshop.product ON amazonas_webshop.basket.fk_prod_ID = amazonas_webshop.product.prod_ID
     public function Get_Basket_Items($email){
         $query = "SELECT fk_prod_ID, amount, product_name, price, picture, short_description FROM amazonas_webshop.basket
                   JOIN amazonas_webshop.product ON amazonas_webshop.basket.fk_prod_ID = amazonas_webshop.product.prod_ID
@@ -86,28 +85,33 @@ class Datahandler
 
     }
 
-    public function Update_amount_of_Product($productID, $email, $amount){
+    //TODO:user_ID --> ohne prepared statement / bei decreased auch
+    public function Increase_amount_of_Product($productID, $email, $amount){
         $userID = $this->Get_User_ID_From_Email($email);
-        $update = "UPDATE basket SET amount = amount + ? WHERE fk_prod_ID = ? AND fk_user_ID = ?";
+        $update = "UPDATE basket SET amount = amount + ? WHERE fk_prod_ID = ? AND fk_user_ID = $userID[0]";
         $stmt = $this->conn->prepare($update);
-        $stmt->bind_param("iii", $amount, $productID, $userID[0]);
+        $stmt->bind_param("ii", $amount, $productID);
         if ($stmt->execute()) {
             // Update successful
-            return "Item updated in the basket";
+            return "Item updated in the basket +";
         } else {
             // Error occurred
             return "Error updating item in the basket";
         }
     }
 
-    public function Add_Item_To_Basket($productID, $email, $amount){
+    //TODO: add decrease amount of product
+    public function Add_Item_To_Basket($productID, $email, $amount, $type){
         $userID = $this->Get_User_ID_From_Email($email);
 
         $prodArr = $this->Get_Prod_ID_From_User_ID($userID[0]);
 
         foreach ($prodArr as $prod){
             if($prod[0] === $productID) {
-                return $this->Update_amount_of_Product($productID, $email, $amount);
+                if($type === "-")
+                    return $this->Decrease_Amount_In_Basket($productID, $email);
+                else
+                    return $this->Increase_amount_of_Product($productID, $email, $amount);
             }
         }
 
@@ -127,18 +131,18 @@ class Datahandler
     }
 
     public function Get_Prod_ID_From_User_ID($userID){
-        $query = "SELECT fk_prod_ID FROM amazonas_webshop.basket WHERE fk_user_ID = {$userID}";
+        $query = "SELECT fk_prod_ID FROM amazonas_webshop.basket WHERE fk_user_ID = $userID";
         return $this->conn->query($query)->fetch_all();
     }
 
     public function Decrease_Amount_In_Basket($productID, $email){
         $userID = $this->Get_User_ID_From_Email($email);
-        $update = "UPDATE basket SET amount = amount - 1 WHERE fk_prod_ID = ? AND fk_user_ID = ?";
+        $update = "UPDATE basket SET amount = amount - 1 WHERE fk_prod_ID = ? AND fk_user_ID = $userID[0]";
         $stmt = $this->conn->prepare($update);
-        $stmt->bind_param("ii", $productID, $userID[0]);
+        $stmt->bind_param("i", $productID);
         if ($stmt->execute()) {
             // Update successful
-            return "Item updated in the basket";
+            return "Item updated in the basket -";
         } else {
             // Error occurred
             return "Error updating item in the basket";
@@ -292,19 +296,6 @@ class Datahandler
         $stmt->execute();
 
         return "Success";
-
-        /*$query = "SELECT * FROM amazonas_webshop.person
-                      JOIN amazonas_webshop.user ON amazonas_webshop.person.pers_ID = amazonas_webshop.user.fk_pers_ID
-                      JOIN amazonas_webshop.address ON amazonas_webshop.person.fk_addr_ID = amazonas_webshop.address.addr_ID
-                      WHERE email = ?";
-        $stmt = $this->conn->prepare($query);
-        $stmt->bind_param("s", $param["email"]);
-        $stmt->execute();
-        $tmp = $stmt->get_result()->fetch_row();
-        if ($tmp == null) {
-            return "NULL";
-        }
-        return $tmp;*/
     }
 
     public function paymentIntoDatabase($param) {
