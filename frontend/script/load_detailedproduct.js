@@ -82,7 +82,16 @@ function load_SpecificProduct() {
 
 function addItemToBasket(amount){
     let prodId=localStorage.getItem("product_id");
-    let email=getCookie("username");
+
+    if(getCookie("username") === ""){
+        $("#liveAlert").append('<span class="text-danger my-1">Please Login first</span>');
+        $("#into-basket").prop("disabled", true);
+        setTimeout(function () {
+            window.location.href = "../web/login.html";
+        }, 2000);
+        return;
+    }
+    let email= getCookie("username");
 
     let method = "addItemToBasket";
     let param = {prodId: prodId, email: email, amount: amount};

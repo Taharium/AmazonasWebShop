@@ -21,10 +21,16 @@ function load_basket(){
         success: function(response) {
             if(response !== "No items") {
                 console.log(response);
-                for (let i = 0; i < response.length; i++) {
-                    console.log(response[i]);
-                    getProductInformation(response[i][0], response[i][1]);
-                }
+                $.each(response, function (index, value) {
+                    let amount = value[1];
+                    let product_id = value[0];
+                    console.log(value[4]);
+                    addToBasketList(value[2], value[5], value[3] * amount, amount, value[4], product_id);
+                    totalPrice += value[3] * amount;
+                    itemCount += 1;
+                    $('#total-price').text(totalPrice);
+                    $('#item-count').text(itemCount);
+                });
             } else {
                 $("#cart-list").append('<li class="d-flex justify-content-center h5">No items in Basket</li>');
             }
@@ -41,12 +47,12 @@ function addToBasketList(itemName, itemSubtitle, itemPrice, itemAmount, imgPath,
     let cartItem = $(`
         <div class="Cart-Items mb-2">
             <div class="cart-image-box">
-                <img src="${imgPath}" class="imgBasket">
+                <img src="${imgPath}" alt="${itemName}" class="imgBasket">
             </div>
             <div class="cart-item-about">
                 <p class="cart-item-title">${itemName}</p>
                 <p class="cart-item-subtitle">${itemSubtitle}</p>
-                <img src="../../pictures/basket/veg.png" style="height: 30px">
+                <!--<img src="../../pictures/basket/veg.png" alt="is_available" style="height: 30px">-->
             </div>
             <div class="counter">
                 <div id="plus_basket" class="cart-btn">+</div>
@@ -55,56 +61,23 @@ function addToBasketList(itemName, itemSubtitle, itemPrice, itemAmount, imgPath,
             </div>
             <div class="cart-item-prices">
                 <div class="cart-item-amount">${itemPrice} €</div>
-                <div class="cart-item-save"><u>Save for later</u></div>
                 <div class="cart-item-remove" data-product-id="${productId}"><u>Remove</u></div>
             </div>
         </div>
     `);
 
     cartItem.find(".cart-item-remove").on("click", function() {
+        totalPrice -= $(this).parent().parent().find(".cart-item-amount").text().split(" ")[0];
         removeItemFromBasket($(this).attr("data-product-id"));
+        $(this).parent().parent().remove();
+        $('#total-price').text(totalPrice);
+        itemCount -= 1;
+        if (itemCount === 0) {
+            $("#cart-list").append('<li class="d-flex justify-content-center h5">No items in Basket</li>');
+        }
     } );
 
     $('#cart-list').append(cartItem);
-}
-
-
-function getProductInformation(product_id, amount) {
-
-    let method = "getProductInformation";
-    let param = product_id;
-    console.log(param);
-    console.log(method);
-
-    $.ajax({
-        type: "GET",
-        url: "../../backend/service_handler.php",
-        data: {method: method, param: param},
-        dataType: "json",
-        success: function(response) {
-            console.log(response);
-            if(response !== "No items") {
-                for (let i = 0; i < response.length; i++) {
-                    console.log("product_id: " + response[i]);
-                    console.log(response[i]);
-                }
-                console.log("name: " + response[0])
-                console.log("subtitle: " + response[3])
-                console.log("price: " + response[1])
-                console.log("imgPath: " + response[2])
-                addToBasketList(response[0], response[3], response[1] * amount, amount, response[2], product_id);
-                totalPrice += response[1] * amount;
-                itemCount += 1;
-                $('#total-price').text(totalPrice);
-                $('#item-count').text(itemCount);
-            } else {
-                $("#cart-list").append('<li class="d-flex justify-content-center h5">No items in Basket</li>');
-            }
-        },
-        error: function(error) {
-            console.log(error);
-        }
-    } );
 }
 
 function removeItemFromBasket(product_id) {
@@ -121,13 +94,44 @@ function removeItemFromBasket(product_id) {
         data: {method: method, param: param},
         dataType: "json",
         success: function(response) {
-            load_basket();
+            console.log(response);
         },
         error: function(error) {
             console.log(error);
         }
-    } );
+    });
 }
+
+$("#removeAll").on("click", function () {
+    let method = "removeAllFromBasket";
+    let param = getCookie("username");
+    $.ajax({
+        type: "GET",
+        url: "../../backend/service_handler.php",
+        data: {method: method, param: param},
+        dataType: "json",
+        success: function(response) {
+            console.log(response);
+            if(response === "Success") {
+                $('#cart-list').empty();
+                $("#cart-list").append('<li class="d-flex justify-content-center h5">No items in Basket</li>');
+
+            } else {
+                $('#cart-list').empty();
+                $("#cart-list").append('<li class="d-flex justify-content-center h5">Already Empty</li>');
+            }
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });
+    totalPrice = 0;
+    itemCount = 0;
+    $('#total-price').text(totalPrice);
+    $('#item-count').text(itemCount);
+    $('#cart-list').empty();
+    $("#cart-list").append('<li class="d-flex justify-content-center h5">No items in Basket</li>');
+});
 
 $("#checkout-button").on("click", function () {
   window.location.href = "payment.html";

@@ -70,14 +70,14 @@ class SimpleLogic
             case 'getOrders':
                 $res = $this->handler->getOrders($param);
                 break;
-                case 'getBasket':
-                    $res = $this->handler->Get_Basket_Items($param);
-                    break;
-            case 'getProductInformation':
-                $res = $this->handler->Get_Product_Information($param);
+            case 'getBasket':
+                $res = $this->handler->Get_Basket_Items($param);
                 break;
             case 'removeItemFromBasket':
                 $res = $this->handler->Remove_Item_From_Basket($param["productID"], $param["email"]);
+                break;
+            case 'removeAllFromBasket':
+                $res = $this->handler->Remove_All_From_Basket($param);
                 break;
             case 'addItemToBasket':
                 $res = $this->handler->Add_Item_To_Basket($param["prodId"], $param["email"], $param["amount"]);
@@ -86,7 +86,7 @@ class SimpleLogic
                 $res = $this->handler->querySearchDetails($param);
                 break;
             case 'paymentIntoDatabase':
-                $res = $this->handler->paymentIntoDatabase($param);
+                $res = $this->handler->paymentIntoDatabase($param["param"]);
                 break;
             default:
                 $res = null;

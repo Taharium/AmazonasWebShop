@@ -19,7 +19,7 @@ function loadOrders() {
                 if (response !== "No orders") {
                     $.each(response, function (index, value) {
                         $("#orders").append('<div class="m-3 p-2 pb-3 cardBody backgroundWS">' +
-                        '<div class="d-flex justify-content-center"><span class="h4">'+value[4] + ' ' + value[2]+'€ Anzahl: '+ value[1] +'</span></div>'  +
+                        '<div class="d-flex justify-content-center"><span class="h4">'+value[4] + ' ' + value[2]+'€ Anzahl: '+ value[1] +' Date: '+ value[0] +'</span></div>'  +
                             '<div class="d-flex justify-content-start mt-2"><img class="imgProducts" src="'+value[3]+'" alt="'+value[4]+'"></div>'  +
                             '<div class="d-flex justify-content-center mt-2"><span class="h5">'+value[5]+'</span></div>' +
                         '</div>');

@@ -50,12 +50,15 @@ class Datahandler
         $tmp = $stmt->get_result()->fetch_assoc();
         return $tmp["password"];
     }
-    public function Get_Basket_Items($email){
 
-        $query = "SELECT fk_prod_ID, amount FROM amazonas_webshop.basket
+    //ändern auf eine function ohne get product information --> , product_name, price, picture, short_description mit JOIN amazonas_webshop.product ON amazonas_webshop.basket.fk_prod_ID = amazonas_webshop.product.prod_ID
+    public function Get_Basket_Items($email){
+        $query = "SELECT fk_prod_ID, amount, product_name, price, picture, short_description FROM amazonas_webshop.basket
+                  JOIN amazonas_webshop.product ON amazonas_webshop.basket.fk_prod_ID = amazonas_webshop.product.prod_ID
                   JOIN amazonas_webshop.user ON amazonas_webshop.basket.fk_user_ID = amazonas_webshop.user.user_ID
                   JOIN amazonas_webshop.person ON amazonas_webshop.user.fk_pers_ID = amazonas_webshop.person.pers_ID
                   WHERE email = ?";
+
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param("s", $email);
         $stmt->execute();
@@ -66,18 +69,6 @@ class Datahandler
         return $tmp;
     }
 
-    public function Get_Product_Information($id){
-        error_log("Datahandler: Get_Product_Information");
-        $query = "SELECT product_name, price, picture, short_description FROM amazonas_webshop.product WHERE prod_ID = ?";
-        $stmt = $this->conn->prepare($query);
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
-        $tmp = $stmt->get_result()->fetch_row();
-        if($tmp == null) {
-            return "No items";
-        }
-        return $tmp;
-    }
     public function Remove_Item_From_Basket($productID, $email){
 
         $userID = $this->Get_User_ID_From_Email($email);
@@ -211,6 +202,8 @@ class Datahandler
         return $tmp;
     }
 
+
+
     public function getOrders($param) {
         $sql = "SELECT date, amount, price, picture, product_name, short_description
                     FROM `order`
@@ -218,7 +211,9 @@ class Datahandler
                     INNER JOIN product ON ordered_products.fk_prod_ID = product.prod_ID
                     INNER JOIN user ON `order`.fk_user_ID = user.user_ID
                     INNER JOIN person ON user.fk_pers_ID = person.pers_ID
-                    WHERE email = ?";
+                    WHERE email = ?
+                    ORDER BY date DESC
+                    LIMIT 10";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("s", $param);
         $stmt->execute();
@@ -299,6 +294,49 @@ class Datahandler
     }
 
     public function paymentIntoDatabase($param) {
-        
+        error_log($param."DAS IST PARAM");
+        $userID = $this->Get_User_ID_From_Email($param);
+        $tmp = $this->Get_Basket_Items($param);
+        if($tmp === "No items") {
+            return "Basket is empty";
+        }
+
+        $status = 1;
+
+        foreach ($tmp as $value) {
+
+            $query = "INSERT INTO amazonas_webshop.order (fk_user_ID, status, date) VALUES (?, ?, NOW() )";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bind_param("ii", $userID,$status);
+            $stmt->execute();
+
+            $id = $this->conn->query("SELECT MAX(r_ID) as r_ID FROM amazonas_webshop.order")->fetch_assoc()['r_ID'];
+
+            $query = "INSERT INTO amazonas_webshop.ordered_products (fk_r_ID, fk_prod_ID, amount) VALUES (?, ?, ?)";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bind_param("iii", $id, $value[0], $value[1]);
+
+
+            if($stmt->execute()) {
+                $this->Remove_All_From_Basket($param);
+                return "Success";
+            } else {
+                return "Error";
+            }
+        }
+        return "Error";
+    }
+
+    public function Remove_All_From_Basket($param)
+    {
+        $userID = $this->Get_User_ID_From_Email($param);
+        $query = "DELETE FROM amazonas_webshop.basket WHERE fk_user_ID = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("i", $userID);
+        if($stmt->execute()){
+            return "Success";
+        } else {
+            return "Empty";
+        }
     }
 }
