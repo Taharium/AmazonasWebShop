@@ -89,13 +89,26 @@ class Datahandler
 
     //TODO:user_ID --> ohne prepared statement / bei decreased auch
     public function Increase_amount_of_Product($productID, $email, $amount){
+
+        $sql = "SELECT stock FROM amazonas_webshop.product WHERE prod_ID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $productID);
+        $stmt->execute();
+        $tmp = $stmt->get_result()->fetch_assoc();
+        $stock = $tmp["stock"];
+        if ($stock < $amount) {
+            return "Not enough items in stock";
+        }
+
+
+
         $userID = $this->Get_User_ID_From_Email($email);
         $update = "UPDATE basket SET amount = amount + ? WHERE fk_prod_ID = ? AND fk_user_ID = $userID[0]";
         $stmt = $this->conn->prepare($update);
         $stmt->bind_param("ii", $amount, $productID);
         $result = $stmt->execute();
 
-        $result &= $this->Update_Stock_Of_Product($productID, -1);
+        $result &= $this->Update_Stock_Of_Product($productID, (0-$amount));
         if ($result) {
             // Update successful
             return "Item updated in the basket +";

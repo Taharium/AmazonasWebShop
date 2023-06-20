@@ -181,7 +181,9 @@ function updateAmount(product_id, amount, selector, type) {
                 selector.find(".cart-item-amount").text(prodPrice + " €");
                 totalPrice += singlePrice;
                 $('#total-price').text(totalPrice);
-            } else {
+            }else if(response === "Not enough items in stock") {
+                alert("Not enough items in stock");
+            }else{
                 selector.find("#amountOfProd").text(parseInt(amount) - 1);
                 let singlePrice = selector.find(".cart-item-amount").text().split(" ")[0] / amount;
                 let prodPrice = Number(selector.find(".cart-item-amount").text().split(" ")[0]) - singlePrice;

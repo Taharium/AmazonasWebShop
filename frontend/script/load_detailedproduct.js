@@ -105,9 +105,18 @@ function addItemToBasket(amount){
         data: {method: method, param: param},
         dataType: "json",
         success: function (response) {
+
+
             if (response !== "Error adding item to the basket") {
                 console.log(response);
                 $("#liveAlert").empty();
+                if (response === "Not enough items in stock") {
+                    $("#liveAlert").append('<span class="text-danger my-1">Not enough items in stock</span>');
+                    setTimeout(function () {
+                        $("#liveAlert").empty();
+                    }, 2000);
+                    return;
+                }
                 if (response === "Error updating item in the basket") {
                     $("#liveAlert").append('<span class="text-danger my-1">error</span>');
                     setTimeout(function () {
