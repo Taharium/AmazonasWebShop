@@ -74,13 +74,13 @@ class SimpleLogic
                 $res = $this->handler->Get_Basket_Items($param);
                 break;
             case 'removeItemFromBasket':
-                $res = $this->handler->Remove_Item_From_Basket($param["productID"], $param["email"]);
+                $res = $this->handler->Remove_Item_From_Basket($param["param"]);
                 break;
             case 'removeAllFromBasket':
-                $res = $this->handler->Remove_All_From_Basket($param);
+                $res = $this->handler->Remove_All_From_Basket($param["param"]);
                 break;
             case 'addItemToBasket':
-                $res = $this->handler->Add_Item_To_Basket($param["prodId"], $param["email"], $param["amount"], $param["type"]);
+                $res = $this->handler->Add_Item_To_Basket($param["param"]);
                 break;
             case 'search':
                 $res = $this->handler->querySearchDetails($param);

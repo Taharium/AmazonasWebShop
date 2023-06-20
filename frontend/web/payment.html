@@ -12,12 +12,6 @@
 <body onload="loadNavbar()">
     <h1 class="h1 mt-3 mb-4" >Payment</h1>
     <div class="d-flex justify-content-center" id="no_payment"></div>
-    <!--Da sollte die order stehen--> 
-    <!--Da sollte die order stehen--> 
-    <!--Da sollte die order stehen--> 
-    <!--Da sollte die order stehen--> 
-    <!--Da sollte die order stehen--> 
-    <!--Da sollte die order stehen-->
     <div class="d-flex flex-wrap" id="noo_payment">
         <div class="col-12 col-sm-12 col-md-8 col-xl-6 container mt-3 p-3 overflow-auto ">
             <div class="cardBody m-3 p-3 backgroundWS " id="payment_basket">
@@ -29,16 +23,16 @@
                 <form id="paymentform" method="POST">
                     <div class="mb-3">
                         <label class="form-label" for="cardname">Name on Card</label>
-                        <input pattern="[a-zA-ZßöäüÖÄÜ]*" inputmode="text" id="cardname" class="form-control" name="cardname" placeholder="Max Mustermann" required>
+                        <input pattern="[a-zA-ZßöäüÖÄÜ ]*" inputmode="text" id="cardname" class="form-control" name="cardname" placeholder="Max Mustermann" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label" for="cardnumber">Credit card number</label>
-                        <input  id="cardnumber" class="form-control" name="cardnumber" pattern="[0-9]*" inputmode="numeric" placeholder="1111-2222-3333-4444" required>
+                        <input id="cardnumber" class="form-control" name="cardnumber" pattern="^\d{4}\s\d{4}\s\d{4}\s\d{4}$" inputmode="numeric" placeholder="1111 2222 3333 4444" required>
                     </div>
                     <div class="mb-3 d-flex">
                         <div class="me-1 col">
                             <label class="form-label" for="expmonth">Exp Month</label>
-                            <input pattern="[0-9]*" inputmode="numeric" id="expmonth" class="form-control" minlength="2" maxlength="2" name="expmonth" placeholder="09" required>
+                            <input pattern="[0-9]*" inputmode="numeric" id="expmonth" class="form-control" minlength="2" maxlength="2" min="12" max="12" name="expmonth" placeholder="09" required>
                         </div>
                         <div class="me-1 col">
                             <label class="form-label" for="expyear">Exp Year</label>
@@ -50,6 +44,7 @@
                         <input pattern="[0-9]*" inputmode="numeric" id="cvv" class="form-control" name="cvv" minlength="3" maxlength="3" placeholder="352" required>
                     </div>
                     <input class="btn btn-primary my-2" type="submit" value="Submit">
+                    <div id="errormessage" class="d-flex justify-content-center"></div>
                 </form>
             </div>
         </div>

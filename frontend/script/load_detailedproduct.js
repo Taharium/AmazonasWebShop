@@ -81,7 +81,7 @@ function load_SpecificProduct() {
 }
 
 function addItemToBasket(amount){
-    let prodId=localStorage.getItem("product_id");
+    let prodId= localStorage.getItem("product_id");
 
     if(getCookie("username") === ""){
         $("#liveAlert").append('<span class="text-danger my-1">Please Login first</span>');
@@ -100,7 +100,7 @@ function addItemToBasket(amount){
     console.log(prodId);
 
     $.ajax({
-        type: "GET",
+        type: "POST",
         url: "../../backend/service_handler.php",
         data: {method: method, param: param},
         dataType: "json",

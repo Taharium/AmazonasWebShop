@@ -110,7 +110,7 @@ function removeItemFromBasket(product_id) {
     console.log(method);
 
     $.ajax({
-        type: "GET",
+        type: "POST",
         url: "../../backend/service_handler.php",
         data: {method: method, param: param},
         dataType: "json",
@@ -127,7 +127,7 @@ $("#removeAll").on("click", function () {
     let method = "removeAllFromBasket";
     let param = getCookie("username");
     $.ajax({
-        type: "GET",
+        type: "POST",
         url: "../../backend/service_handler.php",
         data: {method: method, param: param},
         dataType: "json",
@@ -168,7 +168,7 @@ function updateAmount(product_id, amount, selector, type) {
     console.log(method);
 
     $.ajax({
-        type: "GET",
+        type: "POST",
         url: "../../backend/service_handler.php",
         data: {method: method, param: param},
         dataType: "json",

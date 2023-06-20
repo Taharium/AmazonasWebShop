@@ -1,7 +1,5 @@
-
-
 load_orders_from_Basket();
-
+let itemInBasket = false;
 function load_orders_from_Basket(){
     if(getCookie("username") === ""){
         $("#noo_payment").empty();
@@ -11,6 +9,7 @@ function load_orders_from_Basket(){
         }, 2000);
         return;
     }
+
     let param= getCookie("username");
     let method = "getBasket";
     $.ajax({
@@ -23,12 +22,12 @@ function load_orders_from_Basket(){
             if(response !== "No items") {
                 $.each(response, function (index, value) {
                     let amount = value[1];
-                    let product_id = value[0];
                     addToBasketList(value[2], value[5], value[3] * amount, amount, value[4]);
                 });
-
+                itemInBasket = true;
             } else {
                 $("#payment_basket").append('<li class="d-flex justify-content-center h5">No items in Basket</li>');
+                itemInBasket = false;
             }
         },
         error: function(error) {
@@ -56,13 +55,37 @@ function addToBasketList(itemName, itemSubtitle, itemPrice, itemAmount, imgPath)
             </div>
         </div>
     `);
+
     $('#payment_basket').append(cartItem);
 }
 
 $("#paymentform").on("submit", function (event) {
     event.preventDefault();
+    $("#errormessage").empty();
 
-    let param = getCookie("username");
+    if(!itemInBasket) {
+        $("#errormessage").append('<span class="text-danger my-1 h5">No items in Basket</span>');
+        return;
+    }
+
+    let name = $("#cardname").val().trim();
+
+    let firstname = name.split(" ")[0].trim();
+    let lastname = name.split(" ")[1].trim();
+    let expmonth = $("#expmonth").val();
+    let expyear = $("#expyear").val();
+    let date = new Date();
+    console.log(date.getFullYear().toString().substring(2));
+
+    if(expmonth < 1 || expmonth > 12) {
+        $("#errormessage").append('<span class="text-danger my-1 h5">Month is not valid</span>');
+        return;
+    } else if(expyear < date.getFullYear().toString().substring(2) ) {
+        $("#errormessage").append('<span class="text-danger my-1 h5">Year is not valid</span>');
+        return;
+    }
+
+    let param= {email: getCookie("username"), firstname: firstname, lastname: lastname, expmonth: expmonth, expyear: expyear}
     let method = "paymentIntoDatabase";
 
     $.ajax({
@@ -73,9 +96,15 @@ $("#paymentform").on("submit", function (event) {
         dataType: "json",
         success: function (response) {
             console.log(response);
-            setTimeout(function(){
-                window.location = "payment-successful.html"
-            }, 250)
+            if(response !== "Email or name is not valid"){
+                setTimeout(function(){
+                    window.location = "payment-successful.html"
+                }, 250);
+            } else if(response === "Card is expired") {
+                $("#errormessage").append('<span class="text-danger my-1 h5">Card is expired</span>');
+            } else {
+                $("#errormessage").append('<span class="text-danger my-1 h5">Email or name is not valid</span>');
+            }
         },
         error: function (error) {
             console.log(error);

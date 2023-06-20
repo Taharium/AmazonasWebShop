@@ -68,7 +68,9 @@ class Datahandler
         return $tmp;
     }
 
-    public function Remove_Item_From_Basket($productID, $email){
+    public function Remove_Item_From_Basket($param){
+        $email = $param["email"];
+        $productID = $param["productID"];
 
         $userID = $this->Get_User_ID_From_Email($email);
         $query = "DELETE FROM basket WHERE fk_prod_ID = ? AND fk_user_ID = ".$userID[0];
@@ -101,7 +103,12 @@ class Datahandler
     }
 
     //TODO: add decrease amount of product
-    public function Add_Item_To_Basket($productID, $email, $amount, $type){
+    public function Add_Item_To_Basket($param){
+        $productID = $param["prodId"];
+        $email = $param["email"];
+        $amount = $param["amount"];
+        $type = $param["type"];
+
         $userID = $this->Get_User_ID_From_Email($email);
 
         $prodArr = $this->Get_Prod_ID_From_User_ID($userID[0]);
@@ -127,7 +134,6 @@ class Datahandler
             // Error occurred
             return "Error adding item to the basket";
         }
-
     }
 
     public function Get_Prod_ID_From_User_ID($userID){
@@ -298,10 +304,39 @@ class Datahandler
         return "Success";
     }
 
+    public function validate_email_and_name($email, $firstname, $lastname) {
+        $query = "SELECT email, firstname, lastname FROM amazonas_webshop.person WHERE email = ? AND firstname = ? AND lastname = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("sss", $email, $firstname, $lastname);
+        $stmt->execute();
+        $tmp = $stmt->get_result()->fetch_row();
+        if ($tmp == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     public function paymentIntoDatabase($param) {
-        error_log($param."DAS IST PARAM");
-        $userID = $this->Get_User_ID_From_Email($param);
-        $tmp = $this->Get_Basket_Items($param);
+        $email = $param["email"];
+        $firstname = $param["firstname"];
+        $lastname = $param["lastname"];
+        $expmonth = $param["expmonth"];
+        $expyear = $param["expyear"];
+        $date = date("d.m.y");
+        error_log($date);
+
+
+        if(date_format(date_create($date), "m") > $expmonth && date_format(date_create($date), "y") >= $expyear) {
+            return "Card is expired";
+        }
+
+        if(!$this->validate_email_and_name($email, $firstname, $lastname)) {
+            return "Email or name is not valid";
+        }
+
+        $userID = $this->Get_User_ID_From_Email($email);
+        $tmp = $this->Get_Basket_Items($email);
         if($tmp === "No items") {
             return "Basket is empty";
         }
@@ -323,7 +358,7 @@ class Datahandler
 
 
             if($stmt->execute()) {
-                $this->Remove_All_From_Basket($param);
+                $this->Remove_All_From_Basket($email);
                 return "Success";
             } else {
                 return "Error";
@@ -332,8 +367,9 @@ class Datahandler
         return "Error";
     }
 
-    public function Remove_All_From_Basket($param)
-    {
+    //TODO: userid ohne prepared statement? (wurde ja eigentlich schon gemacht)
+    public function Remove_All_From_Basket($param){
+
         $userID = $this->Get_User_ID_From_Email($param);
         $query = "DELETE FROM amazonas_webshop.basket WHERE fk_user_ID = ?";
         $stmt = $this->conn->prepare($query);
