@@ -209,7 +209,7 @@ input {
     -webkit-box-orient: vertical;
 }
 .cart-item-subtitle{
-    line-height: 10px;
+    line-height: normal;
     font-size: 18px;
     font-family: 'Open Sans', serif;
     font-weight: 600;
@@ -260,8 +260,8 @@ input {
     font-size: 14px;
     font-family: 'Open Sans', serif;
     font-weight: 600;
-    color: #1687d9;
-    cursor: pointer;
+    color: #202020;
+    /*color: #1687d9;*/
 }
 .cart-item-remove{
     padding-top: 5px;

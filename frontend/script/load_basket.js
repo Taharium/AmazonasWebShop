@@ -50,7 +50,7 @@ function addToBasketList(itemName, itemSubtitle, itemPrice, itemAmount, imgPath,
                 <img src="${imgPath}" alt="${itemName}" class="imgBasket">
             </div>
             <div class="cart-item-about ms-2">
-                <p class="cart-item-title">${itemName}</p>
+                <p class="cart-item-title my-0">${itemName}</p>
                 <p class="cart-item-subtitle">${itemSubtitle}</p>
                 <img class ="inventory-state" src="../../pictures/basket/veg.png" alt="is_available" style="height: 30px">
             </div>

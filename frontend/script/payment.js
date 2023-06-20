@@ -24,7 +24,7 @@ function load_orders_from_Basket(){
                 $.each(response, function (index, value) {
                     let amount = value[1];
                     let product_id = value[0];
-                    addToBasketList(value[2], value[5], value[3] * amount, amount, value[4], product_id);
+                    addToBasketList(value[2], value[5], value[3] * amount, amount, value[4]);
                 });
 
             } else {
@@ -37,21 +37,22 @@ function load_orders_from_Basket(){
     });
 }
 
-function addToBasketList(itemName, itemSubtitle, itemPrice, itemAmount, imgPath, productId) {
+function addToBasketList(itemName, itemSubtitle, itemPrice, itemAmount, imgPath) {
     let cartItem = $(`
         <div class="Cart-Items mb-2">
             <div class="cart-image-box">
                 <img src="${imgPath}" alt="${itemName}" class="imgBasket">
             </div>
             <div class="cart-item-about ms-2">
-                <p class="cart-item-title">${itemName}</p>
+                <p class="cart-item-title my-0">${itemName}</p>
                 <p class="cart-item-subtitle">${itemSubtitle}</p>
             </div>
             <div class="counter d-flex justify-content-center align-items-center">
-                <div id="amountOfProd" class="count">Anzahl: ${itemAmount}</div>
+                
             </div>
             <div class="cart-item-prices">
                 <div class="cart-item-amount">${itemPrice} €</div>
+                <div class="cart-item-save">Anzahl: ${itemAmount}</div>
             </div>
         </div>
     `);
