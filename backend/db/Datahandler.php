@@ -93,12 +93,15 @@ class Datahandler
         $update = "UPDATE basket SET amount = amount + ? WHERE fk_prod_ID = ? AND fk_user_ID = $userID[0]";
         $stmt = $this->conn->prepare($update);
         $stmt->bind_param("ii", $amount, $productID);
-        if ($stmt->execute()) {
+        $result = $stmt->execute();
+
+        $result &= $this->Update_Stock_Of_Product($productID, -1);
+        if ($result) {
             // Update successful
             return "Item updated in the basket +";
         } else {
             // Error occurred
-            return "Error updating item in the basket";
+            return "Error updating item amount.";
         }
     }
 
@@ -146,12 +149,27 @@ class Datahandler
         $update = "UPDATE basket SET amount = amount - 1 WHERE fk_prod_ID = ? AND fk_user_ID = $userID[0]";
         $stmt = $this->conn->prepare($update);
         $stmt->bind_param("i", $productID);
-        if ($stmt->execute()) {
-            // Update successful
+        $result = $stmt->execute();
+
+        $result &= $this->Update_Stock_Of_Product($productID, 1);
+
+        if($result){
             return "Item updated in the basket -";
         } else {
-            // Error occurred
             return "Error updating item in the basket";
+        }
+    }
+
+    public function Update_Stock_Of_Product($productID, $amount){
+        $update = "UPDATE product SET stock = stock + ? WHERE prod_ID = ?";
+        $stmt = $this->conn->prepare($update);
+        $stmt->bind_param("ii", $amount, $productID);
+        if ($stmt->execute()) {
+            // Update successful
+            return true;
+        } else {
+            // Error occurred
+            return false;
         }
     }
 
