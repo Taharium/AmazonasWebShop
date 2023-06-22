@@ -61,7 +61,7 @@ function addToBasketList(itemName, itemSubtitle, itemPrice, itemAmount, imgPath,
             </div>
             <div class="cart-item-prices">
                 <div class="cart-item-amount">${itemPrice} €</div>
-                <div class="cart-item-remove" data-product-id="${productId}"><u>Remove</u></div>
+                <div class="cart-item-remove" data-product-id="${productId}"><u>Entfernen</u></div>
             </div>
         </div>
     `);
