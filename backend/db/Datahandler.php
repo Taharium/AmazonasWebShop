@@ -1,6 +1,7 @@
 <?php
 
 namespace db;
+use mysql_xdevapi\Result;
 use mysqli;
 
 include ("dbaccess.php");
@@ -69,6 +70,9 @@ class Datahandler
     public function Remove_Item_From_Basket($param){
         $email = $param["email"];
         $productID = $param["productID"];
+        $amount = $param["amount"];
+
+        $this->Update_Stock_Of_Product($productID, $amount);
 
         $userID = $this->Get_User_ID_From_Email($email);
         $query = "DELETE FROM basket WHERE fk_prod_ID = ? AND fk_user_ID = ".$userID[0];
@@ -102,7 +106,8 @@ class Datahandler
         $stmt->bind_param("ii", $amount, $productID);
         $result = $stmt->execute();
 
-        $result &= $this->Update_Stock_Of_Product($productID, (0-$amount));
+        $result = $result && $this->Update_Stock_Of_Product($productID, (0-$amount));
+
         if ($result) {
             // Update successful
             return "Item updated in the basket +";
@@ -123,6 +128,7 @@ class Datahandler
 
         $prodArr = $this->Get_Prod_ID_From_User_ID($userID[0]);
 
+
         foreach ($prodArr as $prod){
             if($prod[0] === $productID) {
                 if($type === "-")
@@ -132,12 +138,17 @@ class Datahandler
             }
         }
 
+        $result = $this->Update_Stock_Of_Product($productID, (0-$amount));
+        if (!$result) {
+            return "Error adding item to the basket";
+        }
         $insert = "INSERT INTO basket (fk_prod_ID, fk_user_ID, amount) VALUES (?, ?, ?)";
         $stmt = $this->conn->prepare($insert);
         $stmt->bind_param("iii", $productID, $userID[0], $amount);
+        $result = $result && $stmt->execute();
 
 
-        if ($stmt->execute()) {
+        if ($result) {
             // Insertion successful
             return "Item added to the basket";
         } else {
@@ -158,7 +169,7 @@ class Datahandler
         $stmt->bind_param("i", $productID);
         $result = $stmt->execute();
 
-        $result &= $this->Update_Stock_Of_Product($productID, 1);
+        $result = $result && $this->Update_Stock_Of_Product($productID, 1);
 
         if($result){
             return "Item updated in the basket -";
@@ -168,6 +179,16 @@ class Datahandler
     }
 
     public function Update_Stock_Of_Product($productID, $amount){
+
+        $stmt = $this->conn->prepare("SELECT stock FROM amazonas_webshop.product WHERE prod_ID = ?");
+        $stmt->bind_param("i", $productID);
+        $stmt->execute();
+        $tmp = $stmt->get_result()->fetch_assoc();
+        $stock = $tmp["stock"];
+        if($amount < 0 && $stock < abs($amount)){
+            return false;
+        }
+
         $update = "UPDATE product SET stock = stock + ? WHERE prod_ID = ?";
         $stmt = $this->conn->prepare($update);
         $stmt->bind_param("ii", $amount, $productID);
@@ -387,16 +408,28 @@ class Datahandler
         return "Error";
     }
 
-    public function Remove_All_From_Basket($param){
+    public function Remove_All_From_Basket($email){
 
-        $userID = $this->Get_User_ID_From_Email($param);
-        $query = "DELETE FROM amazonas_webshop.basket WHERE fk_user_ID = ?";
+        $userID = $this->Get_User_ID_From_Email($email);
+        $query = "SELECT fk_prod_ID, amount FROM amazonas_webshop.basket WHERE fk_user_ID = ?";
         $stmt = $this->conn->prepare($query);
-        $stmt->bind_param("i", $userID);
-        if($stmt->execute()){
-            return "Success";
-        } else {
+        $stmt->bind_param("i", $userID[0]);
+        $stmt->execute();
+
+        $tmp = $stmt->get_result()->fetch_all();
+
+        foreach ($tmp as $value) {
+            $this->Update_Stock_Of_Product($value[0], $value[1]);
+            $query = "DELETE FROM amazonas_webshop.basket WHERE fk_user_ID = ? AND fk_prod_ID = ?";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bind_param("ii", $userID[0], $value[0]);
+            $stmt->execute();
+        }
+
+
+        if ($tmp == null) {
             return "Empty";
         }
+        return "Success";
     }
 }

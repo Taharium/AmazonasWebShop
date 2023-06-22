@@ -7,6 +7,7 @@ function load_basket(){
     totalPrice = 0;
     itemCount = 0;
     $('#total-price').text(totalPrice);
+    $('#item-count').text(itemCount);
 
     let method = "getBasket";
     let param = getCookie("username");
@@ -27,7 +28,7 @@ function load_basket(){
                     console.log(value[4]);
                     addToBasketList(value[2], value[5], value[3] * amount, amount, value[4], product_id);
                     totalPrice += value[3] * amount;
-                    itemCount += 1;
+                    itemCount += amount;
                     $('#total-price').text(totalPrice);
                     $('#item-count').text(itemCount);
                 });
@@ -69,10 +70,11 @@ function addToBasketList(itemName, itemSubtitle, itemPrice, itemAmount, imgPath,
 
     cartItem.find(".cart-item-remove").on("click", function() {
         totalPrice -= $(this).parent().parent().find(".cart-item-amount").text().split(" ")[0];
-        removeItemFromBasket($(this).attr("data-product-id"));
+        removeItemFromBasket($(this).attr("data-product-id"), $(this).parent().parent().find(".count").text());
         $(this).parent().parent().remove();
         $('#total-price').text(totalPrice);
-        itemCount -= 1;
+        itemCount -= Number($(this).parent().parent().find(".count").text());
+        $('#item-count').text(itemCount);
         if (itemCount === 0) {
             $("#cart-list").append('<li class="d-flex justify-content-center h5">No items in Basket</li>');
         }
@@ -101,10 +103,10 @@ function addToBasketList(itemName, itemSubtitle, itemPrice, itemAmount, imgPath,
     $('#cart-list').append(cartItem);
 }
 
-function removeItemFromBasket(product_id) {
+function removeItemFromBasket(product_id, amount) {
 
     let method = "removeItemFromBasket";
-    let param = {productID: product_id, email: getCookie("username")}
+    let param = {productID: product_id, email: getCookie("username"), amount: amount};
 
     console.log(param);
     console.log(method);
@@ -124,6 +126,8 @@ function removeItemFromBasket(product_id) {
 }
 
 $("#removeAll").on("click", function () {
+
+
     let method = "removeAllFromBasket";
     let param = getCookie("username");
     $.ajax({
@@ -180,7 +184,9 @@ function updateAmount(product_id, amount, selector, type) {
                 let prodPrice = Number(selector.find(".cart-item-amount").text().split(" ")[0]) + singlePrice;
                 selector.find(".cart-item-amount").text(prodPrice + " €");
                 totalPrice += singlePrice;
+                itemCount += 1  ;
                 $('#total-price').text(totalPrice);
+                $('#item-count').text(itemCount);
             } else if(response === "Not enough items in stock") {
                 alert("Not enough items in stock");
             } else {
@@ -189,7 +195,9 @@ function updateAmount(product_id, amount, selector, type) {
                 let prodPrice = Number(selector.find(".cart-item-amount").text().split(" ")[0]) - singlePrice;
                 selector.find(".cart-item-amount").text(prodPrice + " €");
                 totalPrice -= singlePrice;
+                itemCount -= 1;
                 $('#total-price').text(totalPrice);
+                $('#item-count').text(itemCount);
             }
         },
         error: function(error) {

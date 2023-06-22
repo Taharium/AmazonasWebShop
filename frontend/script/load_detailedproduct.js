@@ -96,6 +96,7 @@ function addItemToBasket(amount){
     console.log(param);
     console.log(email);
     console.log(prodId);
+    console.log(amount);
 
     $.ajax({
         type: "POST",
