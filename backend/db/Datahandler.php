@@ -24,7 +24,6 @@ class Datahandler
         $this->conn = new MySQLi($this->servername, $this->username, $this->password, $this->db);
     }
 
-    //brauchen wir das?
     function __destruct()
     {
         // closes connection to server
@@ -32,7 +31,6 @@ class Datahandler
     }
 
     public function Get_UserEmail($email){
-        //$query = "SELECT email, pers_ID FROM amazonas_webshop.person WHERE email = ?";
         $query = "SELECT email, pers_ID, is_active FROM amazonas_webshop.person
                   JOIN amazonas_webshop.user ON amazonas_webshop.person.pers_ID = amazonas_webshop.user.fk_pers_ID
                   WHERE email = ?";
@@ -84,10 +82,8 @@ class Datahandler
             // Error occurred
             return "Error deleting item from the basket.";
         }
-
     }
 
-    //TODO:user_ID --> ohne prepared statement / bei decreased auch
     public function Increase_amount_of_Product($productID, $email, $amount){
 
         $sql = "SELECT stock FROM amazonas_webshop.product WHERE prod_ID = ?";
@@ -99,8 +95,6 @@ class Datahandler
         if ($stock < $amount) {
             return "Not enough items in stock";
         }
-
-
 
         $userID = $this->Get_User_ID_From_Email($email);
         $update = "UPDATE basket SET amount = amount + ? WHERE fk_prod_ID = ? AND fk_user_ID = $userID[0]";
@@ -257,8 +251,6 @@ class Datahandler
         return $tmp;
     }
 
-
-
     public function getOrders($param) {
         $sql = "SELECT date, amount, price, picture, product_name, short_description
                     FROM `order`
@@ -297,9 +289,6 @@ class Datahandler
         if ($tmp == null) {
             return "No Product";
         }
-        // foreach($tmp as $key => $value){
-        //     error_log($key." ".$value);
-        // }
         return $tmp;
     }
 
@@ -398,7 +387,6 @@ class Datahandler
         return "Error";
     }
 
-    //TODO: userid ohne prepared statement? (wurde ja eigentlich schon gemacht)
     public function Remove_All_From_Basket($param){
 
         $userID = $this->Get_User_ID_From_Email($param);

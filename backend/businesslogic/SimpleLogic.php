@@ -63,9 +63,6 @@ class SimpleLogic
                 break;
             case 'getSpecificProduct':
                 $res = $this->handler->getSpecificProduct($param);
-            //     foreach($res as $key => $value){
-            //         error_log($key." ".$value);
-            //  }
                 break;
             case 'getOrders':
                 $res = $this->handler->getOrders($param);

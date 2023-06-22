@@ -19,14 +19,12 @@ function load_SpecificProduct() {
                         '<h1 class="h1 mt-3 mb-4">' + response[4] + '</h1>' +
                         '<div class="d-flex flex-grow-1">' +
                         '   <div class="d-flex align-items-center justify-content-center flex-wrap col-4">' +
-                        // '       <div class="cardBody backgroundWS ">' +
                         '           <div class="d-flex justify-content-center">' +
                         '               <img class="Imgdetailedproduct" src="' + response[6] + '" alt="' + response[4] + '">' +
                         '           </div>' +
                         '           <div class="d-flex justify-content-center mt-3 mb-2">' +
                         '               <span class="h5">' + response[1] + '</span>' +
                         '           </div>' +
-                        // '       </div>' +
                         '   </div>' +
                         '   <div class="d-flex justify-content-center align-items-center col-12 col-sm-12 col-md-6 col-xl-6">' +
                         '       <p class="text-black">' + response[2] + '</p>' +

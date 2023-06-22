@@ -159,7 +159,6 @@ $("#checkout-button").on("click", function () {
 });
 
 
-//TODO: vielleicht ausbessern --> zuerst amount entscheiden und dann ändern?
 function updateAmount(product_id, amount, selector, type) {
     let method = "addItemToBasket";
     let param = {prodId: product_id, email: getCookie("username"), amount: 1, type: type};
@@ -169,6 +168,7 @@ function updateAmount(product_id, amount, selector, type) {
 
     $.ajax({
         type: "POST",
+        async: false,
         url: "../../backend/service_handler.php",
         data: {method: method, param: param},
         dataType: "json",
@@ -181,9 +181,9 @@ function updateAmount(product_id, amount, selector, type) {
                 selector.find(".cart-item-amount").text(prodPrice + " €");
                 totalPrice += singlePrice;
                 $('#total-price').text(totalPrice);
-            }else if(response === "Not enough items in stock") {
+            } else if(response === "Not enough items in stock") {
                 alert("Not enough items in stock");
-            }else{
+            } else {
                 selector.find("#amountOfProd").text(parseInt(amount) - 1);
                 let singlePrice = selector.find(".cart-item-amount").text().split(" ")[0] / amount;
                 let prodPrice = Number(selector.find(".cart-item-amount").text().split(" ")[0]) - singlePrice;
