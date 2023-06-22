@@ -22,20 +22,20 @@
             <div class="cardBody m-3 p-3 backgroundWS">
                 <form id="paymentform" method="POST">
                     <div class="mb-3">
-                        <label class="form-label" for="cardname">Name on Card</label>
+                        <label class="form-label" for="cardname">Name des Karteninhabers</label>
                         <input pattern="[a-zA-ZßöäüÖÄÜ ]*" inputmode="text" id="cardname" class="form-control" name="cardname" placeholder="Max Mustermann" required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label" for="cardnumber">Credit card number</label>
+                        <label class="form-label" for="cardnumber">Kreditkartennummer</label>
                         <input id="cardnumber" class="form-control" name="cardnumber" pattern="^\d{4}\s\d{4}\s\d{4}\s\d{4}$" inputmode="numeric" placeholder="1111 2222 3333 4444" required>
                     </div>
                     <div class="mb-3 d-flex">
                         <div class="me-1 col">
-                            <label class="form-label" for="expmonth">Exp Month</label>
+                            <label class="form-label" for="expmonth">Exp Monat</label>
                             <input pattern="[0-9]*" inputmode="numeric" id="expmonth" class="form-control" minlength="2" maxlength="2" min="12" max="12" name="expmonth" placeholder="09" required>
                         </div>
                         <div class="me-1 col">
-                            <label class="form-label" for="expyear">Exp Year</label>
+                            <label class="form-label" for="expyear">Exp Jahr</label>
                             <input pattern="[0-9]*" inputmode="numeric" id="expyear" minlength="2" maxlength="2" class="form-control" name="expyear" placeholder="26" required>
                         </div>
                     </div>
@@ -43,7 +43,7 @@
                         <label class="form-label" for="cvv">CVV</label>
                         <input pattern="[0-9]*" inputmode="numeric" id="cvv" class="form-control" name="cvv" minlength="3" maxlength="3" placeholder="352" required>
                     </div>
-                    <input class="btn btn-primary my-2" type="submit" value="Submit">
+                    <input class="btn btn-primary my-2" type="submit" value="Bezahlen">
                     <div id="errormessage" class="d-flex justify-content-center"></div>
                 </form>
             </div>
