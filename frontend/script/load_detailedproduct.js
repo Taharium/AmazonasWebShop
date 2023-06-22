@@ -104,8 +104,6 @@ function addItemToBasket(amount){
         data: {method: method, param: param},
         dataType: "json",
         success: function (response) {
-
-
             if (response !== "Error adding item to the basket") {
                 console.log(response);
                 $("#liveAlert").empty();

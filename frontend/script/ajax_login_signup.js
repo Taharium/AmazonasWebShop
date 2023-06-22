@@ -2,14 +2,12 @@
 $("#registrierungForm").on("submit", function(event) {
     event.preventDefault();
     let form = $(this);
-    console.log(form.serialize());
     callAjax("POST",form.serialize(), "registerUser");
 });
 
 $("#loginForm").on("submit", function(event) {
     event.preventDefault();
     let form = $(this);
-    console.log(form.serialize());
     callAjax("POST",form.serialize(), "login");
 });
 
@@ -37,9 +35,7 @@ function callAjax(type, param, method) {
                     } else if(data === "Not found") {
                         errorLogin.text("Account not found! Please register first!");
                     } else {
-                        console.log(data);
                         setCookie(data[0]);
-                        //$("form :input").val("");
                         setTimeout(function(){
                             window.location = "login-successful.html"
                         }, 250)
@@ -48,11 +44,7 @@ function callAjax(type, param, method) {
                 case "registerUser":
                     if(data === "Email already exists") {
                         errorReg.text("Email already exists!");
-                    } /*else if(data === "NULL") {
-                        errorReg.text("Bitte füllen Sie alle Felder aus!");
-                    }*/ else {
-                        console.log(data);
-                        //$("form :input").val("");
+                    } else {
                         setTimeout(function(){
                             window.location = "registration-successful.html"
                         }, 250)

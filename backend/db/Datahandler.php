@@ -117,7 +117,6 @@ class Datahandler
         }
     }
 
-    //TODO: add decrease amount of product
     public function Add_Item_To_Basket($param){
         $productID = $param["prodId"];
         $email = $param["email"];

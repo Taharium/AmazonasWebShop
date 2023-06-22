@@ -166,7 +166,7 @@ $("#checkout-button").on("click", function () {
 function updateAmount(product_id, amount, selector, type) {
     let method = "addItemToBasket";
     let param = {prodId: product_id, email: getCookie("username"), amount: 1, type: type};
-
+    selector.find(".inventory-state").empty();
     console.log(param);
     console.log(method);
 
@@ -188,7 +188,7 @@ function updateAmount(product_id, amount, selector, type) {
                 $('#total-price').text(totalPrice);
                 $('#item-count').text(itemCount);
             } else if(response === "Not enough items in stock") {
-                alert("Not enough items in stock");
+                selector.find(".cart-item-about").append('<div class="inventory-state text-danger">Not enough items in stock</div>');
             } else {
                 selector.find("#amountOfProd").text(parseInt(amount) - 1);
                 let singlePrice = selector.find(".cart-item-amount").text().split(" ")[0] / amount;
