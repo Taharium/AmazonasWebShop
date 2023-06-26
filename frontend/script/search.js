@@ -1,7 +1,5 @@
 
 function searchProduct(param) {
-    console.log("searchProduct");
-    console.log(param);
     let method = "search";
     $.ajax({
         type: "GET",

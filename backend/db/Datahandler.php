@@ -1,7 +1,6 @@
 <?php
 
 namespace db;
-use mysql_xdevapi\Result;
 use mysqli;
 
 include ("dbaccess.php");
