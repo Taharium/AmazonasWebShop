@@ -115,12 +115,12 @@ function addItemToBasket(amount){
                     return;
                 }
                 if (response === "Error updating item in the basket") {
-                    $("#liveAlert").append('<span class="text-danger my-1">error</span>');
+                    $("#liveAlert").append('<span class="text-danger my-1">Fehler</span>');
                     setTimeout(function () {
                         $("#liveAlert").empty();
                     }, 2000);
                 } else {
-                    $("#liveAlert").append('<span class="text-success my-1">success</span>');
+                    $("#liveAlert").append('<span class="text-success my-1">Erfolgreich</span>');
                     setTimeout(function () {
                         $("#liveAlert").empty();
                     }, 2000);
